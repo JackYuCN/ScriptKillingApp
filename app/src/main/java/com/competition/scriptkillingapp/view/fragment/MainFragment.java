@@ -1,4 +1,4 @@
-package com.competition.scriptkillingapp.fragment;
+package com.competition.scriptkillingapp.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -36,7 +36,7 @@ public class MainFragment extends Fragment {
     }
 
     @SuppressLint("NonConstantResourceId")
-    private void init(){
+    private void init() {
         childManager = getChildFragmentManager();
         childTransaction = childManager.beginTransaction();
         getChildFragmentManager()
@@ -44,11 +44,13 @@ public class MainFragment extends Fragment {
                 .replace(R.id.main_content_fragment, new HomeFragment(), "home")
                 .commit();
         childTransaction.commit();
+
         navigationView.setOnItemSelectedListener(item -> {
             resetIcon();
-            switch(item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.navi_home: {
-                    if(navigationView.getSelectedItemId() != R.id.navi_home){
+                    if (navigationView.getSelectedItemId() != R.id.navi_home) {
+                        // 触碰按钮后，修改图标
                         item.setIcon(R.drawable.navi_home);
                         childTransaction = getChildFragmentManager().beginTransaction();
                         hideFragment(navigationView.getSelectedItemId());
@@ -57,48 +59,51 @@ public class MainFragment extends Fragment {
                     }
                     break;
                 }
-                case R.id.navi_scripts:{
-                    if(navigationView.getSelectedItemId() != R.id.navi_scripts){
+                case R.id.navi_scripts: {
+                    if (navigationView.getSelectedItemId() != R.id.navi_scripts) {
+                        // 触碰按钮后，修改图标
                         item.setIcon(R.drawable.navi_scripts);
                         childTransaction = getChildFragmentManager().beginTransaction();
                         hideFragment(navigationView.getSelectedItemId());
-                        if(getChildFragmentManager().findFragmentByTag("scripts") == null){
+                        if (getChildFragmentManager().findFragmentByTag("scripts") == null) {
                             ScriptsFragment fragment = new ScriptsFragment();
                             childTransaction.add(R.id.main_content_fragment, fragment, "scripts");
                             childTransaction.show(fragment);
-                        }else{
+                        } else {
                             childTransaction.show(Objects.requireNonNull(childManager.findFragmentByTag("scripts")));
                         }
                         childTransaction.commit();
                     }
                     break;
                 }
-                case R.id.navi_message:{
-                    if(navigationView.getSelectedItemId() != R.id.navi_message){
+                case R.id.navi_message: {
+                    if (navigationView.getSelectedItemId() != R.id.navi_message) {
+                        // 触碰按钮后，修改图标
                         item.setIcon(R.drawable.navi_message);
                         childTransaction = getChildFragmentManager().beginTransaction();
                         hideFragment(navigationView.getSelectedItemId());
-                        if(getChildFragmentManager().findFragmentByTag("message") == null){
+                        if (getChildFragmentManager().findFragmentByTag("message") == null) {
                             MessageFragment fragment = new MessageFragment();
                             childTransaction.add(R.id.main_content_fragment, fragment, "message");
                             childTransaction.show(fragment);
-                        }else{
+                        } else {
                             childTransaction.show(Objects.requireNonNull(childManager.findFragmentByTag("message")));
                         }
                         childTransaction.commit();
                     }
                     break;
                 }
-                case R.id.navi_my:{
-                    if(navigationView.getSelectedItemId() != R.id.navi_my){
+                case R.id.navi_my: {
+                    if (navigationView.getSelectedItemId() != R.id.navi_my) {
+                        // 触碰按钮后，修改图标
                         item.setIcon(R.drawable.navi_my);
                         childTransaction = getChildFragmentManager().beginTransaction();
                         hideFragment(navigationView.getSelectedItemId());
-                        if(getChildFragmentManager().findFragmentByTag("my") == null){
+                        if (getChildFragmentManager().findFragmentByTag("my") == null) {
                             MyFragment fragment = new MyFragment();
                             childTransaction.add(R.id.main_content_fragment, fragment, "my");
                             childTransaction.show(fragment);
-                        }else{
+                        } else {
                             childTransaction.show(Objects.requireNonNull(childManager.findFragmentByTag("my")));
                         }
                         childTransaction.commit();
@@ -114,27 +119,27 @@ public class MainFragment extends Fragment {
     }
 
     @SuppressLint("NonConstantResourceId")
-    private void hideFragment(int selectedID){
-        switch (selectedID){
-            case R.id.navi_home:{
-                if(childManager.findFragmentByTag("home") != null)
+    private void hideFragment(int selectedID) {
+        switch (selectedID) {
+            case R.id.navi_home: {
+                if (childManager.findFragmentByTag("home") != null)
                     childTransaction.hide(Objects.requireNonNull(childManager.findFragmentByTag("home")));
                 break;
             }
-            case R.id.navi_scripts:{
-                if(childManager.findFragmentByTag("scripts") != null){
+            case R.id.navi_scripts: {
+                if (childManager.findFragmentByTag("scripts") != null) {
                     childTransaction.hide(Objects.requireNonNull(childManager.findFragmentByTag("scripts")));
                 }
                 break;
             }
-            case R.id.navi_message:{
-                if(childManager.findFragmentByTag("message") != null){
+            case R.id.navi_message: {
+                if (childManager.findFragmentByTag("message") != null) {
                     childTransaction.hide(Objects.requireNonNull(childManager.findFragmentByTag("message")));
                 }
                 break;
             }
-            case R.id.navi_my:{
-                if(childManager.findFragmentByTag("my") != null){
+            case R.id.navi_my: {
+                if (childManager.findFragmentByTag("my") != null) {
                     childTransaction.hide(Objects.requireNonNull(childManager.findFragmentByTag("my")));
                 }
                 break;
@@ -144,7 +149,7 @@ public class MainFragment extends Fragment {
         }
     }
 
-    private void resetIcon(){
+    private void resetIcon() {
         MenuItem home = navigationView.getMenu().findItem(R.id.navi_home);
         home.setIcon(R.drawable.navi_home);
         MenuItem scripts = navigationView.getMenu().findItem(R.id.navi_scripts);

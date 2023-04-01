@@ -1,4 +1,4 @@
-package com.competition.scriptkillingapp.fragment;
+package com.competition.scriptkillingapp.view.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

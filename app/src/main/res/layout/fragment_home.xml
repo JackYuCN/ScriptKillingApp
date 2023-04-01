@@ -1,18 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/home_text_demo"
+    <EditText
+        android:id="@+id/home_searchEdtText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="请输入关键词搜索" />
+
+    <ImageView
+        android:id="@+id/home_shownImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/home_searchEdtText"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/ic_launcher_background" />
+
+    <Button
+        android:id="@+id/home_button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is Home Fragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_below="@id/home_shownImage"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:text="Button" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/home_button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/home_shownImage"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/home_button1"
+        android:text="Button" />
+
+    <Spinner
+        android:id="@+id/home_spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/home_button1"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp" />
+
+    <Spinner
+        android:id="@+id/home_spinner2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/home_button1"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/home_spinner1" />
+
+    <Spinner
+        android:id="@+id/home_spinner3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/home_button1"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/home_spinner2" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_scriptsRecView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@id/home_spinner1"
+        android:layout_marginTop="10dp"/>
+
+
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package com.competition.scriptkillingapp.view;
+package com.competition.scriptkillingapp.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.competition.scriptkillingapp.R;
-import com.competition.scriptkillingapp.fragment.MainFragment;
+import com.competition.scriptkillingapp.view.fragment.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
 

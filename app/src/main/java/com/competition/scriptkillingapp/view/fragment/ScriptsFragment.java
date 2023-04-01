@@ -1,4 +1,4 @@
-package com.competition.scriptkillingapp.fragment;
+package com.competition.scriptkillingapp.view.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,14 +11,13 @@ import androidx.fragment.app.Fragment;
 
 import com.competition.scriptkillingapp.R;
 
-public class HomeFragment extends Fragment {
-
+public class ScriptsFragment extends Fragment {
     private View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_home, container, false);
+        view = inflater.inflate(R.layout.fragment_scripts, container, false);
 
         return view;
     }
