@@ -66,8 +66,8 @@ public class ScriptRecViewAdapter extends RecyclerView.Adapter<ScriptRecViewAdap
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            txtName = itemView.findViewById(R.id.list_item_scriptName);
-            parent = itemView.findViewById(R.id.list_item_parent);
+            txtName = itemView.findViewById(R.id.script_list_item_scriptName);
+            parent = itemView.findViewById(R.id.script_list_item_parent);
         }
     }
 }

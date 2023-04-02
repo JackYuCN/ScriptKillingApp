@@ -9,9 +9,9 @@
         android:id="@+id/home_searchEdtText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="请输入关键词搜索" />
@@ -21,9 +21,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/home_searchEdtText"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:src="@drawable/ic_launcher_background" />
 
     <Button
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/home_shownImage"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:text="Button" />
@@ -43,7 +43,7 @@
         android:layout_below="@id/home_shownImage"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/home_button1"
+        android:layout_toEndOf="@id/home_button1"
         android:text="Button" />
 
     <Spinner
@@ -61,7 +61,7 @@
         android:layout_below="@id/home_button1"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
-        android:layout_toRightOf="@id/home_spinner1" />
+        android:layout_toEndOf="@id/home_spinner1" />
 
     <Spinner
         android:id="@+id/home_spinner3"
@@ -70,15 +70,15 @@
         android:layout_below="@id/home_button1"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
-        android:layout_toRightOf="@id/home_spinner2" />
+        android:layout_toEndOf="@id/home_spinner2" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_scriptsRecView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_below="@id/home_spinner1"
         android:layout_marginTop="10dp"/>
 
