@@ -23,7 +23,7 @@
 
 
         <TextView
-            android:id="@+id/script_list_item_hotReviews"
+            android:id="@+id/script_list_item_txtHotReviews"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/script_list_item_image"
@@ -32,7 +32,7 @@
             android:textSize="12dp" />
 
         <TextView
-            android:id="@+id/script_list_item_scriptName"
+            android:id="@+id/script_list_item_txtScriptName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -41,20 +41,20 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/script_list_item_scriptType"
+            android:id="@+id/script_list_item_txtScriptType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/script_list_item_scriptName"
+            android:layout_below="@id/script_list_item_txtScriptName"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="4dp"
             android:layout_toRightOf="@id/script_list_item_image"
             android:text="类型：BlaBlaBla" />
 
         <TextView
-            android:id="@+id/script_list_item_scriptPeople"
+            android:id="@+id/script_list_item_txtScriptPeople"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/script_list_item_scriptType"
+            android:layout_below="@id/script_list_item_txtScriptType"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="4dp"
             android:layout_toRightOf="@id/script_list_item_image"

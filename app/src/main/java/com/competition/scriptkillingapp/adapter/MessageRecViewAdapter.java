@@ -1,6 +1,5 @@
 package com.competition.scriptkillingapp.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,23 +12,23 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.competition.scriptkillingapp.R;
-import com.competition.scriptkillingapp.model.Script;
+import com.competition.scriptkillingapp.model.Message;
 
 import java.util.ArrayList;
 
-public class ScriptRecViewAdapter extends RecyclerView.Adapter<ScriptRecViewAdapter.ViewHolder> {
+public class MessageRecViewAdapter extends RecyclerView.Adapter<MessageRecViewAdapter.ViewHolder> {
 
-    ArrayList<Script> scripts;
+    ArrayList<Message> messages;
 
     private Context context;
 
-    public ScriptRecViewAdapter(Context context) {
-        this.scripts = new ArrayList<>();
+    public MessageRecViewAdapter(Context context) {
+        this.messages = new ArrayList<>();
         this.context = context;
     }
 
-    public void setScripts(ArrayList<Script> scripts) {
-        this.scripts = scripts;
+    public void setMessages(ArrayList<Message> messages) {
+        this.messages = messages;
         notifyDataSetChanged();
     }
 
@@ -37,26 +36,28 @@ public class ScriptRecViewAdapter extends RecyclerView.Adapter<ScriptRecViewAdap
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.script_list_item, parent, false);
+                .inflate(R.layout.prepare_room_list_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.txtName.setText(scripts.get(position).getName());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.txtName.setText(messages.get(position).getName());
+
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, scripts.get(position).getName() + " clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, messages.get(position).getName() + " clicked", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return scripts.size();
+        return messages.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txtName;
@@ -66,8 +67,8 @@ public class ScriptRecViewAdapter extends RecyclerView.Adapter<ScriptRecViewAdap
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            txtName = itemView.findViewById(R.id.script_list_item_txtScriptName);
-            parent = itemView.findViewById(R.id.script_list_item_parent);
+            txtName = itemView.findViewById(R.id.message_list_item_txtMsgName);
+            parent = itemView.findViewById(R.id.message_list_item_parent);
         }
     }
 }
