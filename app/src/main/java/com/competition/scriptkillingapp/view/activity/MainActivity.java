@@ -1,4 +1,4 @@
-package com.competition.scriptkillingapp;
+package com.competition.scriptkillingapp.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.competition.scriptkillingapp.R;
+import com.competition.scriptkillingapp.view.fragment.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.TRANSPARENT);
         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.activity_main_fragment, new MainFragment(), "main")
+                .commit();
 
     }
 }
