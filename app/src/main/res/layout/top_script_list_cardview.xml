@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tslcv_txtTopName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TOP10 热销榜" />
+
+        <TextView
+            android:id="@+id/tslcv_showAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="全部" />
+
+        <ImageView
+            android:id="@+id/tslcv_imageViewTop1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/tslcv_txtTopName"
+            android:src="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/tslcv_txtTopScriptName1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tslcv_imageViewTop1"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/tslcv_imageViewTop1"
+            android:text="剧本名称" />
+
+        <TextView
+            android:id="@+id/tslcv_txtTopScriptScore1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tslcv_imageViewTop1"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:text="9.5"/>
+
+        <TextView
+            android:id="@+id/tslcv_txtTopScriptReview1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tslcv_imageViewTop1"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/tslcv_imageViewTop1"
+            android:text="这里是热评这里是热评这里是热评"
+            android:textSize="10sp" />
+
+        <ImageView
+            android:id="@+id/tslcv_imageViewTop2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/tslcv_imageViewTop1"
+            android:src="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/tslcv_txtTopScriptName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tslcv_imageViewTop2"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/tslcv_imageViewTop2"
+            android:text="剧本名称" />
+
+        <TextView
+            android:id="@+id/tslcv_txtTopScriptScore2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tslcv_imageViewTop2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:text="9.5" />
+
+        <TextView
+            android:id="@+id/tslcv_txtTopScriptReview2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tslcv_imageViewTop2"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/tslcv_imageViewTop2"
+            android:text="这里是热评这里是热评这里是热评"
+            android:textSize="10sp" />
+
+        <ImageView
+            android:id="@+id/tslcv_imageViewTop3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/tslcv_imageViewTop2"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/tslcv_txtTopScriptName3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tslcv_imageViewTop3"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/tslcv_imageViewTop3"
+            android:text="剧本名称" />
+
+        <TextView
+            android:id="@+id/tslcv_txtTopScriptScore3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tslcv_imageViewTop3"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:text="9.5" />
+
+        <TextView
+            android:id="@+id/tslcv_txtTopScriptReview3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tslcv_imageViewTop3"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/tslcv_imageViewTop3"
+            android:text="这里是热评这里是热评这里是热评"
+            android:textSize="10sp" />
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
