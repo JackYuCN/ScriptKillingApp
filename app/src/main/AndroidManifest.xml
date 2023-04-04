@@ -11,15 +11,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ScriptKillingApp"
         tools:targetApi="31">
+
         <activity
-            android:name=".view.activity.MainActivity"
-            android:exported="true">
+            android:name=".view.activity.LogInActivity"
+            android:exported="true"
+            tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity
+            android:name=".view.activity.MainActivity"
+            android:exported="true"
+            tools:ignore="IntentFilterExportedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+
     </application>
 
 </manifest>
