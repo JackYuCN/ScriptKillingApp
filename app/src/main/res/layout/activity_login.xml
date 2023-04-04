@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".view.activity.MainActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/login_cv_user_head"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:cardCornerRadius="50dp"
+        app:cardElevation="10dp"
+        app:cardPreventCornerOverlap="true"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/login_tv_user_head"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cat" />
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:id="@+id/login_et1"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:hint="学 号"
+        android:maxLines="1"
+        android:padding="5dp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        />
+
+    <EditText
+        android:id="@+id/login_et2"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:hint="密 码"
+        android:maxLines="1"
+        android:padding="5dp"
+        android:inputType="textPassword"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        />
+
+    <Button
+        android:id="@+id/login_btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="忘记密码?"
+        android:textColor="#03A9F4"
+        android:background="#00000000" />
+
+
+    <Button
+        android:id="@+id/login_btn2"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="登录"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="#03A9F4"
+        />
+
+    <Button
+        android:id="@+id/login_btn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="200dp"
+        android:text="还没有账号?注册一个"
+        android:textColor="#03A9F4"
+        android:background="#00000000" />
+
+</LinearLayout>
