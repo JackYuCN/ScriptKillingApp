@@ -46,7 +46,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         String fail = "密码或者账号有误，请重新登录！";
         Intent intent = null;
 
-        //假设正确的账号和密码分别是abcdef，1234456
+        //假设正确的账号和密码分别是a，1
         if(username.equals("a") && password.equals("1")){
             Toast.makeText(getApplicationContext(),ok,Toast.LENGTH_SHORT).show();
 

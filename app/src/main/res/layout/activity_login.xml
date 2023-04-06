@@ -12,11 +12,11 @@
         android:id="@+id/login_cv_user_head"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
         app:cardCornerRadius="50dp"
         app:cardElevation="10dp"
-        app:cardPreventCornerOverlap="true"
-        android:layout_marginTop="50dp"
-        android:layout_gravity="center">
+        app:cardPreventCornerOverlap="true">
 
         <ImageView
             android:id="@+id/login_tv_user_head"
@@ -30,46 +30,43 @@
         android:id="@+id/login_et1"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:textSize="16sp"
-        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
         android:hint="学 号"
         android:maxLines="1"
         android:padding="5dp"
-        android:layout_marginTop="50dp"
-        android:layout_gravity="center"
-        />
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/login_et2"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:textSize="16sp"
-        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:hint="密 码"
+        android:inputType="textPassword"
         android:maxLines="1"
         android:padding="5dp"
-        android:inputType="textPassword"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center"
-        />
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/login_btn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#00000000"
         android:text="忘记密码?"
-        android:textColor="#03A9F4"
-        android:background="#00000000" />
+        android:textColor="#03A9F4" />
 
 
     <Button
         android:id="@+id/login_btn2"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="登录"
         android:layout_gravity="center_horizontal"
         android:backgroundTint="#03A9F4"
-        />
+        android:text="登录" />
 
     <Button
         android:id="@+id/login_btn3"
@@ -77,8 +74,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="200dp"
+        android:background="#00000000"
         android:text="还没有账号?注册一个"
-        android:textColor="#03A9F4"
-        android:background="#00000000" />
+        android:textColor="#03A9F4" />
 
 </LinearLayout>

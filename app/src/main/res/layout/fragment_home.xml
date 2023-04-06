@@ -1,86 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/home_searchEdtText"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="20dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="请输入关键词搜索" />
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/home_shownImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/home_searchEdtText"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/ic_launcher_background" />
+        <EditText
+            android:id="@+id/home_searchEdtText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="20dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="请输入关键词搜索" />
 
-    <Button
-        android:id="@+id/home_button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/home_shownImage"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:text="Button" />
+        <ImageView
+            android:id="@+id/home_shownImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_searchEdtText"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_launcher_background" />
 
-    <Button
-        android:id="@+id/home_button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/home_shownImage"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_toEndOf="@id/home_button1"
-        android:text="Button" />
+        <TextView
+            android:id="@+id/home_txtReadyToOpenRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_shownImage"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="即开房"
+            android:textSize="20sp" />
 
-    <Spinner
-        android:id="@+id/home_spinner1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/home_button1"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp" />
+        <TextView
+            android:id="@+id/home_txtBookingRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_shownImage"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/home_txtReadyToOpenRoom"
+            android:text="预约房"
+            android:textSize="20sp" />
 
-    <Spinner
-        android:id="@+id/home_spinner2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/home_button1"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_toEndOf="@id/home_spinner1" />
+        <Spinner
+            android:id="@+id/home_spinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_txtReadyToOpenRoom"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp" />
 
-    <Spinner
-        android:id="@+id/home_spinner3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/home_button1"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_toEndOf="@id/home_spinner2" />
+        <Spinner
+            android:id="@+id/home_spinner2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/home_spinner1"
+            android:layout_alignBottom="@id/home_spinner1"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp" />
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/home_scriptsRecView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_below="@id/home_spinner1"
-        android:layout_marginTop="10dp"/>
+        <Spinner
+            android:id="@+id/home_spinner3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/home_spinner2"
+            android:layout_alignBottom="@id/home_spinner1"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp" />
 
 
-</RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/home_scriptsRecView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_spinner1"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp" />
+
+
+    </RelativeLayout>
+
+
+</androidx.core.widget.NestedScrollView>
