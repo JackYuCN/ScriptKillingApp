@@ -2,10 +2,13 @@ package com.competition.scriptkillingapp.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,12 +24,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.competition.scriptkillingapp.R;
 import com.competition.scriptkillingapp.adapter.ScriptRecViewAdapter;
 import com.competition.scriptkillingapp.model.Script;
+import com.competition.scriptkillingapp.util.MyNestedScrollView;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
+    private static final String TAG = "HomeFragment";
     private View view;
 
     private TextView txtReadyRoom, txtBookRoom;
@@ -41,12 +46,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private ScriptRecViewAdapter adapterReady, adapterBook;
 
+    private RelativeLayout homePageParent, homePageHeader;
+
+    private MyNestedScrollView homeScrollView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
-
         scriptsRecView = view.findViewById(R.id.home_scriptsRecView);
+
+        homePageParent = view.findViewById(R.id.home_parent);
+        homePageHeader = view.findViewById(R.id.home_header);
+        homeScrollView = view.findViewById(R.id.home_scrollView);
         txtReadyRoom = view.findViewById(R.id.home_txtReadyToOpenRoom);
         txtBookRoom = view.findViewById(R.id.home_txtBookingRoom);
         spinner1 = view.findViewById(R.id.home_spinner1);
@@ -61,7 +73,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         changeState(true);
 
+        initScrollView();
+
         return view;
+    }
+
+    private void initScrollView() {
+        // 动态设置RecView的高度
+        homePageParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int headerHeight = homePageHeader.getMeasuredHeight();
+                homeScrollView.setHeaderHeight(headerHeight);
+                int measureHeight = homePageParent.getMeasuredHeight();
+                // Log.d(TAG, "onGlobalLayout measureHeight --> " + measureHeight);
+                ViewGroup.LayoutParams layoutParams = scriptsRecView.getLayoutParams();
+                layoutParams.height = measureHeight;
+                scriptsRecView.setLayoutParams(layoutParams);
+
+                // TODO: 注意，这里如果关闭监听器会出现白边，暂时不知道如何解决
+                // if (measureHeight != 0) {
+                //     homePageParent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                // }
+            }
+        });
     }
 
     private void initSpinnerAdapter() {

@@ -1,85 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/message_parent">
 
-    <RelativeLayout
+    <com.competition.scriptkillingapp.util.MyNestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/message_scrollView">
 
-        <TextView
-            android:id="@+id/message_txtTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:text="消息"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/message_txtAddFriend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/message_txtTitle"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
-            android:text="添加好友"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/message_txtPrepareRoom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/message_txtTitle"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:text="准备室" />
-
-        <TextView
-            android:id="@+id/message_txtShowAll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/message_txtTitle"
-            android:layout_alignBaseline="@id/message_txtPrepareRoom"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:text="显示全部"
-            android:textSize="12sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/message_prepareRoomRecView"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/message_txtPrepareRoom"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/message_txtOtherMsg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/message_prepareRoomRecView"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:text="其他消息" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/message_header">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/message_otherMsgRecView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/message_txtOtherMsg"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="20dp" />
+                <TextView
+                    android:id="@+id/message_txtTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="40dp"
+                    android:text="消息"
+                    android:textSize="25sp" />
 
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/message_txtAddFriend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/message_txtTitle"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:text="添加好友"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/message_txtPrepareRoom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/message_txtTitle"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20sp"
+                    android:text="准备室" />
+
+                <TextView
+                    android:id="@+id/message_txtShowAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/message_txtTitle"
+                    android:layout_alignBaseline="@id/message_txtPrepareRoom"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="显示全部"
+                    android:textSize="12sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/message_prepareRoomRecView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/message_txtPrepareRoom"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp" />
+
+                <TextView
+                    android:id="@+id/message_txtOtherMsg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/message_prepareRoomRecView"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20sp"
+                    android:text="其他消息" />
 
 
+            </RelativeLayout>
 
-</androidx.core.widget.NestedScrollView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/message_otherMsgRecView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/message_header"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="20dp" />
+
+        </RelativeLayout>
+
+    </com.competition.scriptkillingapp.util.MyNestedScrollView>
+
+
+</RelativeLayout>

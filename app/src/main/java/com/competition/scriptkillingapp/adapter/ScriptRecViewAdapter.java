@@ -2,6 +2,7 @@ package com.competition.scriptkillingapp.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 
 public class ScriptRecViewAdapter extends RecyclerView.Adapter<ScriptRecViewAdapter.ViewHolder> {
 
+    private static final String TAG = "ScriptRecViewAdapter";
     ArrayList<Script> scripts;
 
     private Context context;
@@ -32,10 +34,11 @@ public class ScriptRecViewAdapter extends RecyclerView.Adapter<ScriptRecViewAdap
         this.scripts = scripts;
         notifyDataSetChanged();
     }
-
+    
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.d(TAG, "onCreateViewHolder ... ");
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.script_list_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
@@ -44,6 +47,7 @@ public class ScriptRecViewAdapter extends RecyclerView.Adapter<ScriptRecViewAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        Log.d(TAG, "onBindViewHolder --> " + position);
         holder.txtName.setText(scripts.get(position).getName());
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
