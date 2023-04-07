@@ -33,68 +33,67 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "HomeFragment";
     private View view;
-
     private TextView txtReadyRoom, txtBookRoom;
-
     private Spinner spinner1, spinner2, spinner3;
-
     private ArrayAdapter<String> spinnerAdapterTime, spinnerAdapterCnt, spinnerAdapterType;
-
     private RecyclerView scriptsRecView;
-
     private ArrayList<Script> scriptsListReady, scriptsListBook;
-
     private ScriptRecViewAdapter adapterReady, adapterBook;
-
-    private RelativeLayout homePageParent, homePageHeader;
-
-    private MyNestedScrollView homeScrollView;
+    private RelativeLayout homeHeader;
+    private MyNestedScrollView homeParent;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        scriptsRecView = view.findViewById(R.id.home_scriptsRecView);
 
-        homePageParent = view.findViewById(R.id.home_parent);
-        homePageHeader = view.findViewById(R.id.home_header);
-        homeScrollView = view.findViewById(R.id.home_scrollView);
+        scriptsRecView = view.findViewById(R.id.home_scriptsRecView);
+        homeParent = view.findViewById(R.id.home_parent);
+        homeHeader = view.findViewById(R.id.home_header);
+
         txtReadyRoom = view.findViewById(R.id.home_txtReadyToOpenRoom);
         txtBookRoom = view.findViewById(R.id.home_txtBookingRoom);
         spinner1 = view.findViewById(R.id.home_spinner1);
         spinner2 = view.findViewById(R.id.home_spinner2);
         spinner3 = view.findViewById(R.id.home_spinner3);
 
-        txtReadyRoom.setOnClickListener(this);
-        txtBookRoom.setOnClickListener(this);
-
         initRecView();
         initSpinnerAdapter();
-
-        changeState(true);
-
-        initScrollView();
+        initListener();
 
         return view;
     }
 
-    private void initScrollView() {
-        // 动态设置RecView的高度
-        homePageParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+    private void initListener() {
+
+        txtReadyRoom.setOnClickListener(this);
+        txtBookRoom.setOnClickListener(this);
+
+        homeParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            int cnt = 0;
+
             @Override
             public void onGlobalLayout() {
-                int headerHeight = homePageHeader.getMeasuredHeight();
-                homeScrollView.setHeaderHeight(headerHeight);
-                int measureHeight = homePageParent.getMeasuredHeight();
-                // Log.d(TAG, "onGlobalLayout measureHeight --> " + measureHeight);
+                // set the header's height dynamically
+                int headerHeight = homeHeader.getMeasuredHeight();
+                Log.d(TAG, "HeaderHeight --> " + headerHeight);
+                homeParent.setHeaderHeight(headerHeight);
+
+                // set the RecView's height dynamically
+                int measureHeight = homeParent.getMeasuredHeight();
+                Log.d(TAG, "Fragment MeasureHeight --> " + measureHeight);
                 ViewGroup.LayoutParams layoutParams = scriptsRecView.getLayoutParams();
                 layoutParams.height = measureHeight;
                 scriptsRecView.setLayoutParams(layoutParams);
 
-                // TODO: 注意，这里如果关闭监听器会出现白边，暂时不知道如何解决
-                // if (measureHeight != 0) {
-                //     homePageParent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                // }
+                // NOTICE:
+                // 这里不知道为什么homeParent的MeasureHeight会改变多次，所以不能在发生任意改变后就关闭监听
+                // 打Log可知MeasureHeight改变10次以后会变成最后的值，充分起见，设置阈值为20
+                if (measureHeight != 0 && cnt > 20 && homeParent.getHeaderHeight() != 0) {
+                    homeParent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+                cnt++;
             }
         });
     }
@@ -170,6 +169,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         spinnerAdapterType.add("惊悚");
         spinnerAdapterType.add("玄幻");
         spinnerAdapterType.add("类型");
+
+        changeState(true);
     }
 
     @Override

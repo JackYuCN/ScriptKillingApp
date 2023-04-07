@@ -32,6 +32,7 @@ public class MainFragment extends Fragment {
         navigationView = view.findViewById(R.id.bottom_navigation);
         navigationView.setItemIconTintList(null);
         init();
+
         return view;
     }
 

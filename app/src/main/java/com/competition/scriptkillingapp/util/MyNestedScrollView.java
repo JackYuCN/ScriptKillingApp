@@ -13,6 +13,8 @@ import androidx.core.widget.NestedScrollView;
 public class MyNestedScrollView extends NestedScrollView {
     private static final String TAG = "MyNestedScrollView";
 
+
+
     private int mHeaderHeight = 0;
     private int originScroll = 0;
 
@@ -30,6 +32,10 @@ public class MyNestedScrollView extends NestedScrollView {
 
     public void setHeaderHeight(int headerHeight) {
         this.mHeaderHeight = headerHeight;
+    }
+
+    public int getHeaderHeight() {
+        return mHeaderHeight;
     }
 
     @Override

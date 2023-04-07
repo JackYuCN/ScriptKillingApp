@@ -1,6 +1,7 @@
 package com.competition.scriptkillingapp.view.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,26 +23,29 @@ import com.competition.scriptkillingapp.util.MyNestedScrollView;
 import java.util.ArrayList;
 
 public class MessageFragment extends Fragment {
+    private static final String TAG = "MessageFragment";
     private View view;
-
-    private RecyclerView otherMsgRecView;
-    private RecyclerView prepareRoomMsgRecView;
-
-    private RelativeLayout messageHeader, messageParent;
-
-    private MyNestedScrollView messageScrollView;
+    private RecyclerView otherMsgRecView, prepareRoomMsgRecView;
+    private RelativeLayout messageHeader;
+    private MyNestedScrollView messageParent;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_message, container, false);
 
-        messageScrollView = view.findViewById(R.id.message_scrollView);
         messageHeader = view.findViewById(R.id.message_header);
         messageParent = view.findViewById(R.id.message_parent);
         prepareRoomMsgRecView = view.findViewById(R.id.message_prepareRoomRecView);
         otherMsgRecView = view.findViewById(R.id.message_otherMsgRecView);
 
+        initRecView();
+        initListener();
+
+        return view;
+    }
+
+    private void initRecView() {
         ArrayList<Message> prepareRoomMsg = new ArrayList<>();
         ArrayList<Message> otherMsg = new ArrayList<>();
 
@@ -62,25 +66,26 @@ public class MessageFragment extends Fragment {
         otherMsgAdapter.setMessages(otherMsg);
         otherMsgRecView.setAdapter(otherMsgAdapter);
         otherMsgRecView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
-        initScrollView();
-
-        return view;
     }
 
-    private void initScrollView() {
+    private void initListener() {
         // 动态设置RecView的高度
         messageParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+                // set the header's height dynamically
                 int headerHeight = messageHeader.getMeasuredHeight();
-                messageScrollView.setHeaderHeight(headerHeight);
+                Log.d(TAG, "HeaderHeight --> " + headerHeight);
+                messageParent.setHeaderHeight(headerHeight);
+
+                // set the otherMsg RecView's height dynamically
                 int measureHeight = messageParent.getMeasuredHeight();
-                // Log.d(TAG, "onGlobalLayout measureHeight --> " + measureHeight);
+                Log.d(TAG, "Fragment MeasureHeight --> " + measureHeight);
                 ViewGroup.LayoutParams layoutParams = otherMsgRecView.getLayoutParams();
                 layoutParams.height = measureHeight;
                 otherMsgRecView.setLayoutParams(layoutParams);
-                if (measureHeight != 0) {
+
+                if (measureHeight != 0 && messageParent.getHeaderHeight() != 0) {
                     messageParent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }
             }

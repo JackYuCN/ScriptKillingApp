@@ -1,106 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.competition.scriptkillingapp.util.MyNestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/home_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:overScrollMode="never">
 
-    <com.competition.scriptkillingapp.util.MyNestedScrollView
-        android:id="@+id/home_scrollView"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <RelativeLayout
+            android:id="@+id/home_header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:id="@+id/home_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/home_searchEdtText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginEnd="20dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="请输入关键词搜索" />
-
-                <ImageView
-                    android:id="@+id/home_shownImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/home_searchEdtText"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:src="@drawable/ic_launcher_background" />
-
-                <TextView
-                    android:id="@+id/home_txtReadyToOpenRoom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/home_shownImage"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:text="即开房"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/home_txtBookingRoom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/home_shownImage"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@id/home_txtReadyToOpenRoom"
-                    android:text="预约房"
-                    android:textSize="20sp" />
-
-                <Spinner
-                    android:id="@+id/home_spinner1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/home_txtReadyToOpenRoom"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp" />
-
-                <Spinner
-                    android:id="@+id/home_spinner2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@id/home_spinner1"
-                    android:layout_alignBottom="@id/home_spinner1"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp" />
-
-                <Spinner
-                    android:id="@+id/home_spinner3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@id/home_spinner2"
-                    android:layout_alignBottom="@id/home_spinner1"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp" />
-
-
-            </RelativeLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/home_scriptsRecView"
+            <EditText
+                android:id="@+id/home_searchEdtText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/home_header"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="20dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="请输入关键词搜索" />
+
+            <ImageView
+                android:id="@+id/home_shownImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/home_searchEdtText"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_launcher_background" />
+
+            <TextView
+                android:id="@+id/home_txtReadyToOpenRoom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/home_shownImage"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp" />
+                android:text="即开房"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/home_txtBookingRoom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/home_shownImage"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/home_txtReadyToOpenRoom"
+                android:text="预约房"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/home_spinner1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/home_txtReadyToOpenRoom"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp" />
+
+            <Spinner
+                android:id="@+id/home_spinner2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/home_spinner1"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/home_spinner1" />
+
+            <Spinner
+                android:id="@+id/home_spinner3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/home_spinner1"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/home_spinner2" />
+
 
         </RelativeLayout>
 
-    </com.competition.scriptkillingapp.util.MyNestedScrollView>
 
-</RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/home_scriptsRecView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp" />
+
+    </LinearLayout>
+
+</com.competition.scriptkillingapp.util.MyNestedScrollView>

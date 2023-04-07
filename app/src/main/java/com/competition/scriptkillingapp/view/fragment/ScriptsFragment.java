@@ -1,6 +1,7 @@
 package com.competition.scriptkillingapp.view.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +22,11 @@ import com.competition.scriptkillingapp.util.MyNestedScrollView;
 import java.util.ArrayList;
 
 public class ScriptsFragment extends Fragment {
-
+    private static final String TAG = "ScriptsFragment";
     private View view;
-
-    private LinearLayout scriptsHeader, scriptsParent;
+    private LinearLayout scriptsHeader;
     private RecyclerView scriptsRecView;
-
-    private MyNestedScrollView scriptsScrollView;
+    private MyNestedScrollView scriptsParent;
 
     @Nullable
     @Override
@@ -35,10 +34,16 @@ public class ScriptsFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_scripts, container, false);
 
         scriptsParent = view.findViewById(R.id.scripts_parent);
-        scriptsScrollView = view.findViewById(R.id.scripts_scrollView);
         scriptsHeader = view.findViewById(R.id.scripts_header);
-        scriptsRecView = view.findViewById(R.id.hot_scripts_recommend_recview);
+        scriptsRecView = view.findViewById(R.id.scripts_recommendRecView);
 
+        initRecView();
+        initListener();
+
+        return view;
+    }
+
+    private void initRecView() {
         ArrayList<Script> scripts = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             scripts.add(new Script("测试样例" + i));
@@ -49,25 +54,26 @@ public class ScriptsFragment extends Fragment {
 
         scriptsRecView.setAdapter(adapter);
         scriptsRecView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
-        initScrollView();
-
-        return view;
     }
 
-    private void initScrollView() {
-        // 动态设置RecView的高度
+
+    private void initListener() {
         scriptsParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+                // set the header's height dynamically
                 int headerHeight = scriptsHeader.getMeasuredHeight();
-                scriptsScrollView.setHeaderHeight(headerHeight);
+                Log.d(TAG, "HeaderHeight --> " + headerHeight);
+                scriptsParent.setHeaderHeight(headerHeight);
+
+                // set the RecView's height dynamically
                 int measureHeight = scriptsParent.getMeasuredHeight();
-                // Log.d(TAG, "onGlobalLayout measureHeight --> " + measureHeight);
+                Log.d(TAG, "Fragment MeasureHeight --> " + measureHeight);
                 ViewGroup.LayoutParams layoutParams = scriptsRecView.getLayoutParams();
                 layoutParams.height = measureHeight;
                 scriptsRecView.setLayoutParams(layoutParams);
-                if (measureHeight != 0) {
+
+                if (measureHeight != 0 && scriptsParent.getHeaderHeight() != 0) {
                     scriptsParent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }
             }
