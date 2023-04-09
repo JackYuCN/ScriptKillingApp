@@ -107,6 +107,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 if (position == getCount()) {
                     ((TextView) v.findViewById(android.R.id.text1)).setText("");
                     ((TextView) v.findViewById(android.R.id.text1)).setHint(getItem(getCount())); // "Hint to be displayed"
+                } else {
+                    Log.d(TAG, "getView position " + position);
+                    ViewGroup.LayoutParams layoutParams = v.getLayoutParams();
+                    layoutParams.height = -2; // wrap_content
+                    v.setLayoutParams(layoutParams);
                 }
 
                 return v;
@@ -125,6 +130,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 if (position == getCount()) {
                     ((TextView) v.findViewById(android.R.id.text1)).setText("");
                     ((TextView) v.findViewById(android.R.id.text1)).setHint(getItem(getCount())); // "Hint to be displayed"
+                } else {
+                    Log.d(TAG, "getView position " + position);
+                    ViewGroup.LayoutParams layoutParams = v.getLayoutParams();
+                    layoutParams.height = -2; // wrap_content
+                    v.setLayoutParams(layoutParams);
                 }
 
                 return v;
@@ -143,6 +153,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 if (position == getCount()) {
                     ((TextView) v.findViewById(android.R.id.text1)).setText("");
                     ((TextView) v.findViewById(android.R.id.text1)).setHint(getItem(getCount())); // "Hint to be displayed"
+                } else {
+                    Log.d(TAG, "getView position " + position);
+                    ViewGroup.LayoutParams layoutParams = v.getLayoutParams();
+                    layoutParams.height = -2; // wrap_content
+                    v.setLayoutParams(layoutParams);
                 }
 
                 return v;
