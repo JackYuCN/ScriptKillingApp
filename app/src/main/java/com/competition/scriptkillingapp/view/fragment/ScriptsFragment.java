@@ -56,7 +56,6 @@ public class ScriptsFragment extends Fragment {
         scriptsRecView.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }
 
-
     private void initListener() {
         scriptsParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override

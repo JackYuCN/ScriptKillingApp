@@ -27,24 +27,25 @@
     </androidx.cardview.widget.CardView>
 
     <EditText
-        android:id="@+id/login_et1"
+        android:id="@+id/login_edtTextEmail"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:hint="学 号"
+        android:hint="邮箱"
+        android:inputType="textEmailAddress"
         android:maxLines="1"
         android:padding="5dp"
         android:textColor="@color/black"
         android:textSize="16sp" />
 
     <EditText
-        android:id="@+id/login_et2"
+        android:id="@+id/login_edtTextPassword"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:hint="密 码"
+        android:hint="密码"
         android:inputType="textPassword"
         android:maxLines="1"
         android:padding="5dp"
@@ -77,5 +78,6 @@
         android:background="#00000000"
         android:text="还没有账号?注册一个"
         android:textColor="#03A9F4" />
+
 
 </LinearLayout>

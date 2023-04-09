@@ -3,6 +3,7 @@ package com.competition.scriptkillingapp.view.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,14 +12,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.competition.scriptkillingapp.R;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class LogInActivity extends AppCompatActivity implements View.OnClickListener{
+public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private static final String TAG = "LogInActivity";
 
     //声明控件
     private Button mBtnLogin;
-    private EditText mEtUser;
-    private EditText mEtPassword;
-
+    private EditText mEdtTextEmail, mEdtTextPassword;
+    private FirebaseAuth mAuth;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -28,35 +31,46 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
         //找到控件
         mBtnLogin = findViewById(R.id.login_btn2);
-        mEtUser = findViewById(R.id.login_et1);
-        mEtPassword = findViewById(R.id.login_et2);
+        mEdtTextEmail = findViewById(R.id.login_edtTextEmail);
+        mEdtTextPassword = findViewById(R.id.login_edtTextPassword);
+        mAuth = FirebaseAuth.getInstance();
 
-
-        mBtnLogin.setOnClickListener(this::onClick);
+        // Initialize Firebase Auth
+        mBtnLogin.setOnClickListener(this);
     }
 
-
-
-    public void onClick(View v){
+    public void onClick(View v) {
         //需要获取输入的用户名和密码
-        String username = mEtUser.getText().toString();
-        String password = mEtPassword.getText().toString();
+        String email = mEdtTextEmail.getText().toString();
+        String password = mEdtTextPassword.getText().toString();
+
+
         //弹出的内容设置
         String ok = "登录成功！";
-        String fail = "密码或者账号有误，请重新登录！";
-        Intent intent = null;
+        String fail = "邮箱或者密码有误，请重新输入！";
+        String warning = "邮箱或者密码不能为空！";
 
-        //假设正确的账号和密码分别是a，1
-        if(username.equals("a") && password.equals("1")){
-            Toast.makeText(getApplicationContext(),ok,Toast.LENGTH_SHORT).show();
-
-            //如果正确的话进行跳转
-            intent = new Intent(  LogInActivity.this, MainActivity.class);
-            startActivity(intent);
-        }else{
-            Toast.makeText(getApplicationContext(),fail,Toast.LENGTH_SHORT).show();
+        if (!email.equals("") && !password.equals("")) {
+            mAuth.signInWithEmailAndPassword(email, password);
+            if (mAuth.getCurrentUser() != null) {
+                // 登录成功
+                Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+                startActivity(intent);
+            } else {
+                // 邮箱或密码有误，登录失败
+                Toast.makeText(this, fail, Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            // 邮箱或密码为空，登录失败
+            Toast.makeText(this, warning, Toast.LENGTH_SHORT).show();
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
 
+        if (mAuth.getCurrentUser() != null)
+            mAuth.signOut();
+    }
 }
