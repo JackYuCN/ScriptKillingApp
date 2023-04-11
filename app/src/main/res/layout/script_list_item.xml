@@ -61,6 +61,7 @@
             android:text="人数：等x男x女" />
 
         <Button
+            android:id="@+id/script_list_item_open_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

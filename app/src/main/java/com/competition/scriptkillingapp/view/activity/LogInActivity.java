@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "LogInActivity";
+    private static final String TAG = "LogInCheck";
 
     //声明控件
     private Button mBtnLogin;
@@ -65,23 +65,27 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             mAuth.signInWithEmailAndPassword(email, password);
             if (mAuth.getCurrentUser() != null) {
                 // 登录成功
+                Log.d(TAG, "登录成功\nUID: " + mAuth.getCurrentUser().getUid());
                 Intent intent = new Intent(LogInActivity.this, MainActivity.class);
                 startActivity(intent);
             } else {
                 // 邮箱或密码有误，登录失败
-                Toast.makeText(this, fail, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "登录失败");
+                // Toast.makeText(this, fail, Toast.LENGTH_SHORT).show();
             }
         } else {
             // 邮箱或密码为空，登录失败
-            Toast.makeText(this, warning, Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, warning, Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
 
-        if (mAuth.getCurrentUser() != null)
+        if (mAuth.getCurrentUser() != null) {
             mAuth.signOut();
+            Log.d(TAG, "Sign Out");
+        }
     }
 }
