@@ -9,4 +9,16 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="准备好了" />
+
+    <TextView
+        android:id="@+id/game_tv_countDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/game_btn_start"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:text="01:00"
+        android:textSize="25sp" />
+
+
 </RelativeLayout>

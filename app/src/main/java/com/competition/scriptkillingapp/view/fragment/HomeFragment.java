@@ -1,6 +1,6 @@
 package com.competition.scriptkillingapp.view.fragment;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,8 +16,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,9 +23,10 @@ import com.competition.scriptkillingapp.R;
 import com.competition.scriptkillingapp.adapter.ScriptRecViewAdapter;
 import com.competition.scriptkillingapp.model.Script;
 import com.competition.scriptkillingapp.util.MyNestedScrollView;
+import com.competition.scriptkillingapp.view.activity.AddScriptActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
@@ -41,12 +40,41 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private ScriptRecViewAdapter adapterReady, adapterBook;
     private RelativeLayout homeHeader;
     private MyNestedScrollView homeParent;
+    private FloatingActionButton fabAddScript;
+
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(v.getContext(), "clicked", Toast.LENGTH_SHORT).show();
+        switch (v.getId()) {
+            case R.id.home_txtBookingRoom:
+                changeState(false);
+                break;
+            case R.id.home_txtReadyToOpenRoom:
+                changeState(true);
+                break;
+            case R.id.home_fabAddScript:
+                Intent intent = new Intent(v.getContext(), AddScriptActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        initWidget();
+        initRecView();
+        initSpinnerAdapter();
+        initListener();
+
+        return view;
+    }
+
+    private void initWidget() {
         scriptsRecView = view.findViewById(R.id.home_scriptsRecView);
         homeParent = view.findViewById(R.id.home_parent);
         homeHeader = view.findViewById(R.id.home_header);
@@ -56,48 +84,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         spinner1 = view.findViewById(R.id.home_spinner1);
         spinner2 = view.findViewById(R.id.home_spinner2);
         spinner3 = view.findViewById(R.id.home_spinner3);
-
-        initRecView();
-        initSpinnerAdapter();
-        initListener();
-
-        return view;
+        fabAddScript = view.findViewById(R.id.home_fabAddScript);
     }
+    private void initRecView() {
+        scriptsListReady = new ArrayList<>();
+        scriptsListBook = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            scriptsListReady.add(new Script("即开房测试样例" + i));
+            scriptsListBook.add(new Script("预约房测试样例" + i));
+        }
 
-    private void initListener() {
+        adapterReady = new ScriptRecViewAdapter(view.getContext());
+        adapterBook = new ScriptRecViewAdapter(view.getContext());
+        adapterReady.setScripts(scriptsListReady);
+        adapterBook.setScripts(scriptsListBook);
 
-        txtReadyRoom.setOnClickListener(this);
-        txtBookRoom.setOnClickListener(this);
-
-        homeParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-
-            int cnt = 0;
-
-            @Override
-            public void onGlobalLayout() {
-                // set the header's height dynamically
-                int headerHeight = homeHeader.getMeasuredHeight();
-                Log.d(TAG, "HeaderHeight --> " + headerHeight);
-                homeParent.setHeaderHeight(headerHeight);
-
-                // set the RecView's height dynamically
-                int measureHeight = homeParent.getMeasuredHeight();
-                Log.d(TAG, "Fragment MeasureHeight --> " + measureHeight);
-                ViewGroup.LayoutParams layoutParams = scriptsRecView.getLayoutParams();
-                layoutParams.height = measureHeight;
-                scriptsRecView.setLayoutParams(layoutParams);
-
-                // NOTICE:
-                // 这里不知道为什么homeParent的MeasureHeight会改变多次，所以不能在发生任意改变后就关闭监听
-                // 打Log可知MeasureHeight改变10次以后会变成最后的值，充分起见，设置阈值为20
-                if (measureHeight != 0 && cnt > 20 && homeParent.getHeaderHeight() != 0) {
-                    homeParent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                }
-                cnt++;
-            }
-        });
+        scriptsRecView.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }
-
     private void initSpinnerAdapter() {
         spinnerAdapterTime = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item) {
             @Override
@@ -187,36 +190,39 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         changeState(true);
     }
+    private void initListener() {
 
-    @Override
-    public void onClick(View v) {
-        Toast.makeText(v.getContext(), "clicked", Toast.LENGTH_SHORT).show();
-        switch (v.getId()) {
-            case R.id.home_txtBookingRoom:
-                changeState(false);
-                break;
-            case R.id.home_txtReadyToOpenRoom:
-                changeState(true);
-                break;
-            default:
-                break;
-        }
-    }
+        txtReadyRoom.setOnClickListener(this);
+        txtBookRoom.setOnClickListener(this);
+        fabAddScript.setOnClickListener(this);
 
-    private void initRecView() {
-        scriptsListReady = new ArrayList<>();
-        scriptsListBook = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            scriptsListReady.add(new Script("即开房测试样例" + i));
-            scriptsListBook.add(new Script("预约房测试样例" + i));
-        }
+        homeParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
-        adapterReady = new ScriptRecViewAdapter(view.getContext());
-        adapterBook = new ScriptRecViewAdapter(view.getContext());
-        adapterReady.setScripts(scriptsListReady);
-        adapterBook.setScripts(scriptsListBook);
+            int cnt = 0;
 
-        scriptsRecView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+            @Override
+            public void onGlobalLayout() {
+                // set the header's height dynamically
+                int headerHeight = homeHeader.getMeasuredHeight();
+                Log.d(TAG, "HeaderHeight --> " + headerHeight);
+                homeParent.setHeaderHeight(headerHeight);
+
+                // set the RecView's height dynamically
+                int measureHeight = homeParent.getMeasuredHeight();
+                Log.d(TAG, "Fragment MeasureHeight --> " + measureHeight);
+                ViewGroup.LayoutParams layoutParams = scriptsRecView.getLayoutParams();
+                layoutParams.height = measureHeight;
+                scriptsRecView.setLayoutParams(layoutParams);
+
+                // NOTICE:
+                // 这里不知道为什么homeParent的MeasureHeight会改变多次，所以不能在发生任意改变后就关闭监听
+                // 打Log可知MeasureHeight改变10次以后会变成最后的值，充分起见，设置阈值为20
+                if (measureHeight != 0 && cnt > 20 && homeParent.getHeaderHeight() != 0) {
+                    homeParent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+                cnt++;
+            }
+        });
     }
 
     private void changeState(boolean isReady) {
