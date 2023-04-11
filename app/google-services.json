@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "575409197568",
+    "project_id": "scriptkillingapp",
+    "storage_bucket": "scriptkillingapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575409197568:android:b2ba89c530e582df85bee5",
+        "android_client_info": {
+          "package_name": "com.competition.scriptkillingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "575409197568-1mreb7mdflkrs69u8i7f2e1ct69v3tn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoyNhqYJw2qOSMiCMx5OQFZcyyNlq0PXc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "575409197568-1mreb7mdflkrs69u8i7f2e1ct69v3tn8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
