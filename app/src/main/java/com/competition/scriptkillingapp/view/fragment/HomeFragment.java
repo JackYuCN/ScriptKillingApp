@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,7 +43,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(v.getContext(), "clicked", Toast.LENGTH_SHORT).show();
         switch (v.getId()) {
             case R.id.home_txtBookingRoom:
                 changeState(false);
