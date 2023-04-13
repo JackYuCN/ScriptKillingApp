@@ -1,5 +1,6 @@
 package com.competition.scriptkillingapp.view.activity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
@@ -20,7 +23,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.competition.scriptkillingapp.R;
+import com.competition.scriptkillingapp.model.Room;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,7 +36,13 @@ import java.util.Calendar;
 public class AddScriptActivity extends AppCompatActivity {
     final String TAG_CALENDAR = "CalendarCheck";
     final String TAG_ROLL = "RollCheck";
+    final String TAG_USER = "UserCheck";
+    final String URL = "https://scriptkillingapp-default-rtdb.asia-southeast1.firebasedatabase.app/";
     private TextView mTxtTimeHint;
+    private EditText mEdtTextPassword;
+    private Button mBtnConfirm;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabaseRef;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,12 +50,57 @@ public class AddScriptActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_script);
 
         mTxtTimeHint = findViewById(R.id.add_script_txtTimeHint);
+        mEdtTextPassword = findViewById(R.id.add_script_edtTextPassword);
+        mBtnConfirm = findViewById(R.id.add_script_btnConfirm);
+
+        mAuth = FirebaseAuth.getInstance();
+        assert mAuth != null;
+        mDatabaseRef = FirebaseDatabase.getInstance(URL).getReference();
+        assert mDatabaseRef != null;
 
         initWindow();
         initListener();
     }
 
     private void initListener() {
+        initBottomSheetListener();
+        mBtnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mBtnConfirm.getText().toString().equals("")) {
+                    Toast.makeText(AddScriptActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+                } else if (mTxtTimeHint.getText().toString().equals("")) {
+                    Toast.makeText(AddScriptActivity.this, "请选择时间", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d(TAG_USER, "user clicked button");
+                    Room room = new Room(
+                            mEdtTextPassword.getText().toString(),
+                            mTxtTimeHint.getText().toString()
+                    );
+                    FirebaseUser user= mAuth.getCurrentUser();
+                    if (user != null) {
+                        String UID = user.getUid();
+                        mDatabaseRef.child("rooms").child(UID).setValue(room);
+                        Log.d(TAG_USER, "set value success");
+                    } else {
+                        Log.e(TAG_USER, "user is null!");
+                    }
+                }
+            }
+        });
+    }
+
+    private void initWindow() {
+        //设置顶部框透明
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(Color.TRANSPARENT);
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+    }
+
+    private void initBottomSheetListener() {
         mTxtTimeHint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +149,6 @@ public class AddScriptActivity extends AppCompatActivity {
                 String[] NullArray = {"您已选择即开"};
                 String[] TypeArray = {"即开", "上午场", "下午场", "晚场", "修仙场"};
                 String[] NullTimeArray = {"当前时段不可选"};
-                String min = new String();
                 int morningStart = 6;
                 int afternoonStart = 12;
                 int nightStart = 18;
@@ -100,6 +158,7 @@ public class AddScriptActivity extends AppCompatActivity {
                 String[] TimeNightArray = new String[12];
                 String[] TimeMidNightArray = new String[12];
                 for (int i = 0; i < TimeMidNightArray.length; i++) {
+                    String min;
                     if (i % 2 == 0)
                         min = "00";
                     else
@@ -268,15 +327,5 @@ public class AddScriptActivity extends AppCompatActivity {
                 bottomSheetDialog.show();
             }
         });
-    }
-
-    private void initWindow() {
-        //设置顶部框透明
-        Window window = getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(Color.TRANSPARENT);
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 }

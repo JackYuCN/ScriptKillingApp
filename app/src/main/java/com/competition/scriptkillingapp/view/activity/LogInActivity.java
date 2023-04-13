@@ -12,9 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.competition.scriptkillingapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
@@ -62,30 +66,24 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         String warning = "邮箱或者密码不能为空！";
 
         if (!email.equals("") && !password.equals("")) {
-            mAuth.signInWithEmailAndPassword(email, password);
-            if (mAuth.getCurrentUser() != null) {
-                // 登录成功
-                Log.d(TAG, "登录成功\nUID: " + mAuth.getCurrentUser().getUid());
-                Intent intent = new Intent(LogInActivity.this, MainActivity.class);
-                startActivity(intent);
-            } else {
-                // 邮箱或密码有误，登录失败
-                Log.d(TAG, "登录失败");
-                // Toast.makeText(this, fail, Toast.LENGTH_SHORT).show();
-            }
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(LogInActivity.this, ok, Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "登录成功\nUID: " + mAuth.getCurrentUser().getUid());
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(LogInActivity.this, fail, Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, fail);
+                    }
+                }
+            });
         } else {
             // 邮箱或密码为空，登录失败
-            // Toast.makeText(this, warning, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        if (mAuth.getCurrentUser() != null) {
-            mAuth.signOut();
-            Log.d(TAG, "Sign Out");
+            Toast.makeText(this, warning, Toast.LENGTH_SHORT).show();
         }
     }
 }

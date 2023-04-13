@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.competition.scriptkillingapp.R;
 import com.competition.scriptkillingapp.view.activity.LogInActivity;
 import com.competition.scriptkillingapp.view.activity.MainActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MyFragment extends Fragment {
     private View view;
@@ -36,6 +37,10 @@ public class MyFragment extends Fragment {
         mtxtViewSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 退出登录
+                FirebaseAuth Auth = FirebaseAuth.getInstance();
+                Auth.signOut();
+
                 Intent intent = new Intent(getContext(), LogInActivity.class);
                 startActivity(intent);
             }

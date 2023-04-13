@@ -134,14 +134,25 @@
         android:layout_marginEnd="10dp"
         android:layout_marginTop="50dp" />
 
-    <TextView
-        android:id="@+id/add_script_setPassword"
+    <EditText
+        android:id="@+id/add_script_edtTextPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="设置密码"
+        android:hint="请设置密码"
         android:textSize="18sp"
+        android:inputType="number"
         android:layout_below="@id/add_script_roomLevel"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="60dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
+
+    <Button
+        android:id="@+id/add_script_btnConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_script_edtTextPassword"
+        android:layout_centerHorizontal="true"
+        android:text="确认"
+        android:backgroundTint="@color/gray"
+        android:layout_marginTop="30dp" />
 
 </RelativeLayout>
