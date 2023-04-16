@@ -5,33 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
-    tools:context=".view.activity.MainActivity">
+    android:padding="10dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/login_cv_user_head"
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:src="@drawable/cat"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        app:cardCornerRadius="50dp"
-        app:cardElevation="10dp"
-        app:cardPreventCornerOverlap="true">
-
-        <ImageView
-            android:id="@+id/login_tv_user_head"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/cat" />
-    </androidx.cardview.widget.CardView>
+        android:layout_marginTop="100dp" />
 
     <EditText
-        android:id="@+id/login_edtTextEmail"
+        android:id="@+id/register_edtTextUserName"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
+        android:hint="用户名"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:padding="5dp"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/register_edtTextEmail"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:hint="邮箱"
         android:inputType="textEmailAddress"
         android:maxLines="1"
@@ -40,7 +41,7 @@
         android:textSize="16sp" />
 
     <EditText
-        android:id="@+id/login_edtTextPassword"
+        android:id="@+id/register_edtTextPassword"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
@@ -53,31 +54,14 @@
         android:textSize="16sp" />
 
     <Button
-        android:id="@+id/login_btn1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#00000000"
-        android:text="忘记密码?"
-        android:textColor="#03A9F4" />
-
-
-    <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/register_btnLogin"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
         android:backgroundTint="#03A9F4"
-        android:text="登录" />
+        android:text="注册" />
 
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="200dp"
-        android:background="#00000000"
-        android:text="还没有账号?注册一个"
-        android:textColor="#03A9F4" />
 
 
 </LinearLayout>

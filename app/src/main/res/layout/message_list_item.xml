@@ -12,24 +12,14 @@
         android:layout_height="wrap_content"
         android:padding="10dp">
 
-
-        <androidx.cardview.widget.CardView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/message_list_item_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="250dp">
-
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_background" />
-
-        </androidx.cardview.widget.CardView>
+            android:src="@mipmap/ic_launcher_round"/>
 
         <TextView
-            android:id="@+id/message_list_item_txtMsgName"
+            android:id="@+id/message_list_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -39,7 +29,7 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/message_list_item_txtLastMsg"
+            android:id="@+id/message_list_item_lastMsg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/message_list_item_image"
@@ -50,7 +40,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/message_list_item_txtTime"
+            android:id="@+id/message_list_item_msgTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

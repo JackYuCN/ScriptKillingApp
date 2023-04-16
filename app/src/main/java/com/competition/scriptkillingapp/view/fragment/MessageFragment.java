@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -16,18 +15,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.competition.scriptkillingapp.R;
-import com.competition.scriptkillingapp.adapter.MessageRecViewAdapter;
+import com.competition.scriptkillingapp.adapter.MessageAdapter;
+import com.competition.scriptkillingapp.adapter.UserAdapter;
 import com.competition.scriptkillingapp.model.Message;
+import com.competition.scriptkillingapp.model.User;
 import com.competition.scriptkillingapp.util.MyNestedScrollView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class MessageFragment extends Fragment {
+    final String URL = "https://scriptkillingapp-default-rtdb.asia-southeast1.firebasedatabase.app/";
     private static final String TAG = "MessageFragment";
     private View view;
     private RecyclerView otherMsgRecView, prepareRoomMsgRecView;
     private RelativeLayout messageHeader;
     private MyNestedScrollView messageParent;
+    private ArrayList<Message> mPrepareRooms;
+    private ArrayList<User> mUsers;
 
     @Nullable
     @Override
@@ -46,26 +57,53 @@ public class MessageFragment extends Fragment {
     }
 
     private void initRecView() {
-        ArrayList<Message> prepareRoomMsg = new ArrayList<>();
-        ArrayList<Message> otherMsg = new ArrayList<>();
+        mPrepareRooms = new ArrayList<>();
+        mUsers = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
-            prepareRoomMsg.add(new Message("等候室测试样例" + i));
+            mPrepareRooms.add(new Message("等候室测试样例" + i));
         }
 
-        for (int i = 0; i < 10; i++) {
-            otherMsg.add(new Message("其他消息测试样例" + i));
-        }
-
-        MessageRecViewAdapter prepareRoomMsgAdapter = new MessageRecViewAdapter(view.getContext());
-        prepareRoomMsgAdapter.setMessages(prepareRoomMsg);
+        MessageAdapter prepareRoomMsgAdapter = new MessageAdapter(view.getContext());
+        prepareRoomMsgAdapter.setMessages(mPrepareRooms);
         prepareRoomMsgRecView.setAdapter(prepareRoomMsgAdapter);
+        prepareRoomMsgRecView.setHasFixedSize(true);
         prepareRoomMsgRecView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        MessageRecViewAdapter otherMsgAdapter = new MessageRecViewAdapter(view.getContext());
-        otherMsgAdapter.setMessages(otherMsg);
-        otherMsgRecView.setAdapter(otherMsgAdapter);
+        otherMsgRecView.setHasFixedSize(true);
         otherMsgRecView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        readUsers();
+    }
+
+    private void readUsers() {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        Log.d(TAG, "current user's id " + firebaseUser.getUid());
+        DatabaseReference ref = FirebaseDatabase.getInstance(URL).getReference("Users");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mUsers.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+
+                    Log.d(TAG, "add user " + user.toString());
+
+                    if (!user.getId().equals(firebaseUser.getUid())) {
+                        mUsers.add(user);
+                    }
+                }
+
+                UserAdapter otherMsgAdapter = new UserAdapter(view.getContext());
+                otherMsgAdapter.setUsers(mUsers);
+                otherMsgRecView.setAdapter(otherMsgAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private void initListener() {

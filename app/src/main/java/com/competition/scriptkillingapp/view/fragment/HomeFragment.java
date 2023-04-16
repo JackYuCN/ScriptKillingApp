@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.competition.scriptkillingapp.R;
-import com.competition.scriptkillingapp.adapter.ScriptRecViewAdapter;
+import com.competition.scriptkillingapp.adapter.ScriptAdapter;
 import com.competition.scriptkillingapp.model.Script;
 import com.competition.scriptkillingapp.util.MyNestedScrollView;
 import com.competition.scriptkillingapp.view.activity.AddScriptActivity;
@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private ArrayAdapter<String> spinnerAdapterTime, spinnerAdapterCnt, spinnerAdapterType;
     private RecyclerView scriptsRecView;
     private ArrayList<Script> scriptsListReady, scriptsListBook;
-    private ScriptRecViewAdapter adapterReady, adapterBook;
+    private ScriptAdapter adapterReady, adapterBook;
     private RelativeLayout homeHeader;
     private MyNestedScrollView homeParent;
     private FloatingActionButton fabAddScript;
@@ -92,8 +92,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             scriptsListBook.add(new Script("预约房测试样例" + i));
         }
 
-        adapterReady = new ScriptRecViewAdapter(view.getContext());
-        adapterBook = new ScriptRecViewAdapter(view.getContext());
+        adapterReady = new ScriptAdapter(view.getContext());
+        adapterBook = new ScriptAdapter(view.getContext());
         adapterReady.setScripts(scriptsListReady);
         adapterBook.setScripts(scriptsListBook);
 

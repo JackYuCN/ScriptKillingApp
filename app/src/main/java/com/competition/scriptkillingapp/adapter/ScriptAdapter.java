@@ -21,14 +21,14 @@ import com.competition.scriptkillingapp.view.activity.GameStartActivity;
 
 import java.util.ArrayList;
 
-public class ScriptRecViewAdapter extends RecyclerView.Adapter<ScriptRecViewAdapter.ViewHolder> {
+public class ScriptAdapter extends RecyclerView.Adapter<ScriptAdapter.ViewHolder> {
 
     private static final String TAG = "ScriptRecViewAdapter";
     ArrayList<Script> scripts;
 
     private Context context;
 
-    public ScriptRecViewAdapter(Context context) {
+    public ScriptAdapter(Context context) {
         this.scripts = new ArrayList<>();
         this.context = context;
     }
