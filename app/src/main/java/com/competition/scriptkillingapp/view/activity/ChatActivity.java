@@ -38,16 +38,16 @@ public class ChatActivity extends AppCompatActivity {
 
     final String URL = "https://scriptkillingapp-default-rtdb.asia-southeast1.firebasedatabase.app/";
     private static final String TAG = "ChatActivity";
-    private String mChatId;
+    private String mChatterId;
     private Intent intent;
     private ImageView mBackImage;
-    private TextView mChatName;
-    private DatabaseReference mRef;
-    private FirebaseUser mUser;
+    private TextView mChatterName;
+    private DatabaseReference mRefChatter, mRefChat;
+    private FirebaseUser mCurrentUser;
     private Button mBtnSend;
     private EditText mEdtTextMsg;
     private ChatAdapter mChatAdapter;
-    private ArrayList<Chat> chatMessages;
+    private ArrayList<Chat> chatMessages = new ArrayList<>();
     private RecyclerView mRecViewChatBody;
 
     @Override
@@ -55,23 +55,18 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        mChatName = findViewById(R.id.chatter_name);
-        mBackImage = findViewById(R.id.arrow_back);
-        mBtnSend = findViewById(R.id.btn_send);
-        mEdtTextMsg = findViewById(R.id.edtText_msg);
-        mRecViewChatBody = findViewById(R.id.chat_body);
-
-        mRecViewChatBody.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        linearLayoutManager.setStackFromEnd(true);
-        mRecViewChatBody.setLayoutManager(linearLayoutManager);
-
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
-        assert mUser != null;
-
         intent = getIntent();
-        mChatId = intent.getStringExtra("userId");
+        mChatterId = intent.getStringExtra("userId");
 
+        initWindow();
+        initWidget();
+        initListener();
+    }
+
+    /**
+     * 初始化各控件的监听器
+     */
+    private void initListener() {
         mBackImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,23 +78,21 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String msg = mEdtTextMsg.getText().toString();
                 if (!msg.equals("")) {
-                    sendMessage(mUser.getUid(), mChatId, msg);
+                    sendMessage(mCurrentUser.getUid(), mChatterId, msg);
                 } else {
-                    Toast.makeText(ChatActivity.this, "发送不为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChatActivity.this, "发送不能为空", Toast.LENGTH_SHORT).show();
                 }
                 mEdtTextMsg.setText("");
             }
         });
 
-        mRef = FirebaseDatabase.getInstance(URL).getReference("Users").child(mChatId);
-        mRef.addValueEventListener(new ValueEventListener() {
+        mRefChatter = FirebaseDatabase.getInstance(URL).getReference("Users").child(mChatterId);
+        mRefChatter.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
-
-                mChatName.setText(user.getUsername());
-
-                readMessage(mUser.getUid(), mChatId, user.getImageURL());
+                User chatter = snapshot.getValue(User.class);
+                mChatterName.setText(chatter.getUsername());
+                readMessage(mCurrentUser.getUid(), mChatterId, chatter.getImageURL());
             }
 
             @Override
@@ -107,12 +100,31 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-
-        initWindow();
     }
 
+    /**
+     * 初始化控件
+     */
+    private void initWidget() {
+        mChatterName = findViewById(R.id.chatter_name);
+        mBackImage = findViewById(R.id.arrow_back);
+        mBtnSend = findViewById(R.id.btn_send);
+        mEdtTextMsg = findViewById(R.id.edtText_msg);
+
+        mRecViewChatBody = findViewById(R.id.chat_body);
+        mRecViewChatBody.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setStackFromEnd(true);
+        mRecViewChatBody.setLayoutManager(linearLayoutManager);
+
+        mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert mCurrentUser != null;
+    }
+
+    /**
+     * 设置顶部框透明
+     */
     private void initWindow() {
-        //设置顶部框透明
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -120,6 +132,13 @@ public class ChatActivity extends AppCompatActivity {
         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
+    /**
+     * 将用户发送的信息按照<发送者, 接收者, 信息内容>的格式上传到 FirebaseDatabase 的"Chats"一栏中
+     *
+     * @param sender   -->  发送者Uid
+     * @param receiver -->  接收者Uid
+     * @param message  -->  发送信息
+     */
     private void sendMessage(String sender, String receiver, String message) {
         DatabaseReference ref = FirebaseDatabase.getInstance(URL).getReference();
 
@@ -131,13 +150,19 @@ public class ChatActivity extends AppCompatActivity {
         ref.child("Chats").push().setValue(hashMap);
     }
 
+    /**
+     * 实时读取用户所发送和接收的信息，并将其存入chatMessages中，后者用于RecView的输出
+     *
+     * @param my       --> 用户Uid
+     * @param sender   --> 接收者Uid
+     * @param imageUrl --> 图片网址（头像）
+     */
     private void readMessage(String my, String sender, String imageUrl) {
-        chatMessages = new ArrayList<>();
-
-        mRef = FirebaseDatabase.getInstance(URL).getReference("Chats");
-        mRef.addValueEventListener(new ValueEventListener() {
+        mRefChat = FirebaseDatabase.getInstance(URL).getReference("Chats");
+        mRefChat.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // 遍历Chats，将所有与用户相关的信息存储到chatMessages数组中
                 chatMessages.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Chat chat = dataSnapshot.getValue(Chat.class);
