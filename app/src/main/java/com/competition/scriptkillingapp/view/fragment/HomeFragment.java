@@ -10,6 +10,7 @@ import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -47,7 +48,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout homeHeader;
     private MyNestedScrollView homeParent;
     private FloatingActionButton fabAddScript;
-    private EditText searchEdtText;
+    private SearchView searchEdtText;
 
     @Override
     public void onClick(View v) {
