@@ -67,6 +67,7 @@ public class MessageFragment extends Fragment {
         MessageAdapter prepareRoomMsgAdapter = new MessageAdapter(view.getContext());
         prepareRoomMsgAdapter.setMessages(mPrepareRooms);
         prepareRoomMsgRecView.setAdapter(prepareRoomMsgAdapter);
+
         prepareRoomMsgRecView.setHasFixedSize(true);
         prepareRoomMsgRecView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -103,7 +104,6 @@ public class MessageFragment extends Fragment {
 
             }
         });
-
     }
 
     private void initListener() {

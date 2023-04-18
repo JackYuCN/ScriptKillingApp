@@ -1,10 +1,7 @@
 package com.competition.scriptkillingapp.view.activity;
 
-import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.NumberPicker;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,14 +18,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.competition.scriptkillingapp.R;
-import com.competition.scriptkillingapp.model.Room;
+import com.competition.scriptkillingapp.model.RoomSetting;
+import com.competition.scriptkillingapp.model.Script;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AddScriptActivity extends AppCompatActivity {
@@ -41,7 +36,7 @@ public class AddScriptActivity extends AppCompatActivity {
     private TextView mTxtTimeHint;
     private EditText mEdtTextPassword;
     private Button mBtnConfirm;
-    private FirebaseAuth mAuth;
+    private FirebaseUser mCurrentUser;
     private DatabaseReference mDatabaseRef;
 
     @Override
@@ -53,8 +48,8 @@ public class AddScriptActivity extends AppCompatActivity {
         mEdtTextPassword = findViewById(R.id.add_script_edtTextPassword);
         mBtnConfirm = findViewById(R.id.add_script_btnConfirm);
 
-        mAuth = FirebaseAuth.getInstance();
-        assert mAuth != null;
+        mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert mCurrentUser != null;
         mDatabaseRef = FirebaseDatabase.getInstance(URL).getReference();
         assert mDatabaseRef != null;
 
@@ -72,19 +67,27 @@ public class AddScriptActivity extends AppCompatActivity {
                 } else if (mTxtTimeHint.getText().toString().equals("")) {
                     Toast.makeText(AddScriptActivity.this, "请选择时间", Toast.LENGTH_SHORT).show();
                 } else {
-                    Log.d(TAG_USER, "user clicked button");
-                    Room room = new Room(
+
+                    // 这里直接给出剧本定义，实际实现中应该从数据库读出
+                    Script script = new Script("测试剧本", 3, 3);
+
+                    RoomSetting roomSetting = new RoomSetting(
                             mEdtTextPassword.getText().toString(),
-                            mTxtTimeHint.getText().toString()
+                            mTxtTimeHint.getText().toString(),
+                            mCurrentUser.getUid()
                     );
-                    FirebaseUser user= mAuth.getCurrentUser();
-                    if (user != null) {
-                        String UID = user.getUid();
-                        mDatabaseRef.child("rooms").child(UID).setValue(room);
-                        Log.d(TAG_USER, "set value success");
+                    DatabaseReference ref;
+                    if (mTxtTimeHint.getText().toString().trim().equals("即开房")) {
+                        ref = mDatabaseRef.child("rooms").child("right_now").push();
+                        ref.child("settings").setValue(roomSetting);
+                        ref.child("script").setValue(script);
                     } else {
-                        Log.e(TAG_USER, "user is null!");
+                        ref = mDatabaseRef.child("rooms").child("booking").push();
+                        ref.child("settings").setValue(roomSetting);
+                        ref.child("script").setValue(script);
                     }
+                    Toast.makeText(AddScriptActivity.this, "成功预约", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
         });

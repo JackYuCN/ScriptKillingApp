@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,26 +24,34 @@ import com.competition.scriptkillingapp.adapter.ScriptAdapter;
 import com.competition.scriptkillingapp.model.Script;
 import com.competition.scriptkillingapp.util.MyNestedScrollView;
 import com.competition.scriptkillingapp.view.activity.AddScriptActivity;
+import com.competition.scriptkillingapp.view.activity.SearchScriptActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
-
+    final String URL = "https://scriptkillingapp-default-rtdb.asia-southeast1.firebasedatabase.app/";
     private static final String TAG = "HomeFragment";
     private View view;
     private TextView txtReadyRoom, txtBookRoom;
     private Spinner spinner1, spinner2, spinner3;
     private ArrayAdapter<String> spinnerAdapterTime, spinnerAdapterCnt, spinnerAdapterType;
     private RecyclerView scriptsRecView;
-    private ArrayList<Script> scriptsListReady, scriptsListBook;
+    private ArrayList<Script> scriptsListReady = new ArrayList<>(), scriptsListBook = new ArrayList<>();
     private ScriptAdapter adapterReady, adapterBook;
     private RelativeLayout homeHeader;
     private MyNestedScrollView homeParent;
     private FloatingActionButton fabAddScript;
+    private EditText searchEdtText;
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.home_txtBookingRoom:
                 changeState(false);
@@ -51,7 +60,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 changeState(true);
                 break;
             case R.id.home_fabAddScript:
-                Intent intent = new Intent(v.getContext(), AddScriptActivity.class);
+                intent = new Intent(v.getContext(), AddScriptActivity.class);
                 startActivity(intent);
                 break;
             default:
@@ -73,7 +82,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initWidget() {
-        scriptsRecView = view.findViewById(R.id.home_scriptsRecView);
         homeParent = view.findViewById(R.id.home_parent);
         homeHeader = view.findViewById(R.id.home_header);
 
@@ -83,21 +91,52 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         spinner2 = view.findViewById(R.id.home_spinner2);
         spinner3 = view.findViewById(R.id.home_spinner3);
         fabAddScript = view.findViewById(R.id.home_fabAddScript);
+        searchEdtText = view.findViewById(R.id.home_searchScripts);
+
+        scriptsRecView = view.findViewById(R.id.home_scriptsRecView);
     }
     private void initRecView() {
-        scriptsListReady = new ArrayList<>();
-        scriptsListBook = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            scriptsListReady.add(new Script("即开房测试样例" + i));
-            scriptsListBook.add(new Script("预约房测试样例" + i));
-        }
+        scriptsRecView.setHasFixedSize(true);
+        scriptsRecView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         adapterReady = new ScriptAdapter(view.getContext());
         adapterBook = new ScriptAdapter(view.getContext());
-        adapterReady.setScripts(scriptsListReady);
-        adapterBook.setScripts(scriptsListBook);
 
-        scriptsRecView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        DatabaseReference bookingRef = FirebaseDatabase.getInstance(URL).getReference("rooms/booking");
+        bookingRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                scriptsListBook.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Script script = dataSnapshot.child("script").getValue(Script.class);
+                    scriptsListBook.add(script);
+                }
+                adapterBook.setScripts(scriptsListBook);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference rightNowRef = FirebaseDatabase.getInstance(URL).getReference("rooms/right_now");
+        rightNowRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                scriptsListReady.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Script script = dataSnapshot.child("script").getValue(Script.class);
+                    scriptsListReady.add(script);
+                }
+                adapterReady.setScripts(scriptsListReady);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     private void initSpinnerAdapter() {
         spinnerAdapterTime = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item) {
@@ -193,6 +232,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         txtReadyRoom.setOnClickListener(this);
         txtBookRoom.setOnClickListener(this);
         fabAddScript.setOnClickListener(this);
+        searchEdtText.setOnClickListener(this);
 
         homeParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 

@@ -46,7 +46,7 @@ public class ScriptsFragment extends Fragment {
     private void initRecView() {
         ArrayList<Script> scripts = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            scripts.add(new Script("测试样例" + i));
+            scripts.add(new Script("测试样例" + i, 3, 3));
         }
 
         ScriptAdapter adapter = new ScriptAdapter(view.getContext());
