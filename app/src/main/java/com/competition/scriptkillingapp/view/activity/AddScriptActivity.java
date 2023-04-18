@@ -19,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.competition.scriptkillingapp.R;
 import com.competition.scriptkillingapp.model.RoomSetting;
-import com.competition.scriptkillingapp.model.Script;
+import com.competition.scriptkillingapp.model.ScriptTitle;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -69,7 +69,7 @@ public class AddScriptActivity extends AppCompatActivity {
                 } else {
 
                     // 这里直接给出剧本定义，实际实现中应该从数据库读出
-                    Script script = new Script("测试剧本", 3, 3);
+                    ScriptTitle scriptTitle = new ScriptTitle("测试剧本", 3, 3);
 
                     RoomSetting roomSetting = new RoomSetting(
                             mEdtTextPassword.getText().toString(),
@@ -80,11 +80,11 @@ public class AddScriptActivity extends AppCompatActivity {
                     if (mTxtTimeHint.getText().toString().trim().equals("即开房")) {
                         ref = mDatabaseRef.child("rooms").child("right_now").push();
                         ref.child("settings").setValue(roomSetting);
-                        ref.child("script").setValue(script);
+                        ref.child("script").setValue(scriptTitle);
                     } else {
                         ref = mDatabaseRef.child("rooms").child("booking").push();
                         ref.child("settings").setValue(roomSetting);
-                        ref.child("script").setValue(script);
+                        ref.child("script").setValue(scriptTitle);
                     }
                     Toast.makeText(AddScriptActivity.this, "成功预约", Toast.LENGTH_SHORT).show();
                     finish();

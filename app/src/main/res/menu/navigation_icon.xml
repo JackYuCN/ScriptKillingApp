@@ -9,7 +9,7 @@
     <item
         android:id="@+id/navi_scripts"
         android:icon="@drawable/navi_scripts"
-        android:title="scripts" />
+        android:title="scriptTitles" />
 
     <item
         android:id="@+id/navi_message"

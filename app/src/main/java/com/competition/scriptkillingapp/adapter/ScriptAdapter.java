@@ -16,7 +16,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.competition.scriptkillingapp.R;
-import com.competition.scriptkillingapp.model.Script;
+import com.competition.scriptkillingapp.model.ScriptTitle;
 import com.competition.scriptkillingapp.view.activity.GameStartActivity;
 
 import java.util.ArrayList;
@@ -24,17 +24,17 @@ import java.util.ArrayList;
 public class ScriptAdapter extends RecyclerView.Adapter<ScriptAdapter.ViewHolder> {
 
     private static final String TAG = "ScriptRecViewAdapter";
-    ArrayList<Script> scripts;
+    ArrayList<ScriptTitle> scriptTitles;
 
     private Context context;
 
     public ScriptAdapter(Context context) {
-        this.scripts = new ArrayList<>();
+        this.scriptTitles = new ArrayList<>();
         this.context = context;
     }
 
-    public void setScripts(ArrayList<Script> scripts) {
-        this.scripts = scripts;
+    public void setScripts(ArrayList<ScriptTitle> scriptTitles) {
+        this.scriptTitles = scriptTitles;
         notifyDataSetChanged();
     }
     
@@ -51,11 +51,11 @@ public class ScriptAdapter extends RecyclerView.Adapter<ScriptAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder --> " + position);
-        holder.txtName.setText(scripts.get(position).getName());
+        holder.txtName.setText(scriptTitles.get(position).getName());
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, scripts.get(position).getName() + " clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, scriptTitles.get(position).getName() + " clicked", Toast.LENGTH_SHORT).show();
             }
         });
         holder.btnStart.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +69,7 @@ public class ScriptAdapter extends RecyclerView.Adapter<ScriptAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return scripts.size();
+        return scriptTitles.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

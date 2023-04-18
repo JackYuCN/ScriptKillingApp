@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -22,10 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.competition.scriptkillingapp.R;
 import com.competition.scriptkillingapp.adapter.ScriptAdapter;
-import com.competition.scriptkillingapp.model.Script;
+import com.competition.scriptkillingapp.model.ScriptTitle;
 import com.competition.scriptkillingapp.util.MyNestedScrollView;
 import com.competition.scriptkillingapp.view.activity.AddScriptActivity;
-import com.competition.scriptkillingapp.view.activity.SearchScriptActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,7 +41,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private Spinner spinner1, spinner2, spinner3;
     private ArrayAdapter<String> spinnerAdapterTime, spinnerAdapterCnt, spinnerAdapterType;
     private RecyclerView scriptsRecView;
-    private ArrayList<Script> scriptsListReady = new ArrayList<>(), scriptsListBook = new ArrayList<>();
+    private ArrayList<ScriptTitle> scriptsListReady = new ArrayList<>(), scriptsListBook = new ArrayList<>();
     private ScriptAdapter adapterReady, adapterBook;
     private RelativeLayout homeHeader;
     private MyNestedScrollView homeParent;
@@ -109,8 +107,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 scriptsListBook.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Script script = dataSnapshot.child("script").getValue(Script.class);
-                    scriptsListBook.add(script);
+                    ScriptTitle scriptTitle = dataSnapshot.child("script").getValue(ScriptTitle.class);
+                    scriptsListBook.add(scriptTitle);
                 }
                 adapterBook.setScripts(scriptsListBook);
             }
@@ -127,8 +125,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 scriptsListReady.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Script script = dataSnapshot.child("script").getValue(Script.class);
-                    scriptsListReady.add(script);
+                    ScriptTitle scriptTitle = dataSnapshot.child("script").getValue(ScriptTitle.class);
+                    scriptsListReady.add(scriptTitle);
                 }
                 adapterReady.setScripts(scriptsListReady);
             }

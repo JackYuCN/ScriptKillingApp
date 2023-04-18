@@ -1,14 +1,14 @@
 package com.competition.scriptkillingapp.model;
 
-public class Script {
+public class ScriptTitle {
     private String name;
     private int char_male;
     private int char_female;
 
-    public Script() {
+    public ScriptTitle() {
     }
 
-    public Script(String name, int char_male, int char_female) {
+    public ScriptTitle(String name, int char_male, int char_female) {
         this.name = name;
         this.char_male = char_male;
         this.char_female = char_female;
