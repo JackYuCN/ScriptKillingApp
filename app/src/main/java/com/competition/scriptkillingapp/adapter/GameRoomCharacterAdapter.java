@@ -16,33 +16,25 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.competition.scriptkillingapp.R;
-import com.competition.scriptkillingapp.model.Chat;
-import com.competition.scriptkillingapp.model.ScriptTitle;
-import com.competition.scriptkillingapp.view.activity.ChatActivity;
+import com.competition.scriptkillingapp.model.Script;
 import com.competition.scriptkillingapp.view.activity.GameStartActivity;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ScriptAdapter extends RecyclerView.Adapter<ScriptAdapter.ViewHolder> {
-    final String URL = "https://scriptkillingapp-default-rtdb.asia-southeast1.firebasedatabase.app/";
+public class GameRoomCharacterAdapter extends RecyclerView.Adapter<GameRoomCharacterAdapter.ViewHolder> {
 
-    private static final String TAG = "ScriptRecViewAdapter";
-    ArrayList<ScriptTitle> scriptTitles;
+    private static final String TAG = "GameRoomCharacterAdapter";
+    ArrayList<Script> scripts;
 
     private Context context;
 
-    public ScriptAdapter(Context context) {
-        this.scriptTitles = new ArrayList<>();
+    public GameRoomCharacterAdapter(Context context) {
+        this.scripts = new ArrayList<>();
         this.context = context;
     }
 
-    public void setScripts(ArrayList<ScriptTitle> scriptTitles) {
-        this.scriptTitles = scriptTitles;
+    public void setScripts(ArrayList<Script> scripts) {
+        this.scripts = scripts;
         notifyDataSetChanged();
     }
     
@@ -51,7 +43,7 @@ public class ScriptAdapter extends RecyclerView.Adapter<ScriptAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder ... ");
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.script_list_item, parent, false);
+                .inflate(R.layout.gameroom_character_intro1, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -59,20 +51,17 @@ public class ScriptAdapter extends RecyclerView.Adapter<ScriptAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder --> " + position);
-        holder.txtName.setText(scriptTitles.get(position).getName());
+        holder.txtName.setText(scripts.get(position).getName());
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, scriptTitles.get(position).getName() + " clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, scripts.get(position).getName() + " clicked", Toast.LENGTH_SHORT).show();
             }
         });
         holder.btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference ref = FirebaseDatabase.getInstance(URL).getReference("Games").push();
-                ref.child("stages").setValue(1);
                 Intent intent = new Intent(context, GameStartActivity.class);
-                intent.putExtra("gameIdx", ref.getKey());
                 context.startActivity(intent);
             }
         });
@@ -80,7 +69,7 @@ public class ScriptAdapter extends RecyclerView.Adapter<ScriptAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return scriptTitles.size();
+        return scripts.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -92,9 +81,9 @@ public class ScriptAdapter extends RecyclerView.Adapter<ScriptAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            txtName = itemView.findViewById(R.id.script_list_item_txtScriptName);
-            parent = itemView.findViewById(R.id.script_list_item_parent);
-            btnStart = itemView.findViewById(R.id.script_list_item_open_btn);
+            txtName = itemView.findViewById(R.id.game_room1_item_txtScriptName);
+            parent = itemView.findViewById(R.id.gameroom_character_intro_parent);
+            btnStart = itemView.findViewById(R.id.game_room1_item_button);
         }
     }
 }

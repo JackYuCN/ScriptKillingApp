@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/script_list_item_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="15dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+
+        <ImageView
+            android:id="@+id/gr_intro_item_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background" />
+
+
+
+        <TextView
+            android:id="@+id/gr_intro_item_txtScriptName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/gr_intro_item_image"
+            android:text="剧本名称: Bla"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/gr_intro_item_txtScriptScroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/gr_intro_item_txtScriptName"
+            android:text="4.5分"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/gr_intro_item_txtScriptType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gr_intro_item_txtScriptName"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/gr_intro_item_image"
+            android:text="类型：BlaBlaBla"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/gr_intro_item_txtScriptPeople"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gr_intro_item_txtScriptType"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/gr_intro_item_image"
+            android:text="x人|x小时"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/gr_intro_item_open_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="70dp"
+            android:backgroundTint="@color/gray"
+            android:text="简介"
+            android:textSize="12dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/gray"
+            android:layout_below="@id/gr_intro_item_image"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/gr_intro_scriptsRecView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gr_intro_item_image"
+            android:layout_marginTop="10dp"
+            />
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

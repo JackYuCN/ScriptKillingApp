@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <Button
+            android:id="@+id/headline_button1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/btn_circle"
+            android:backgroundTint="@color/gray"
+            android:text="back"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/headline_button1"
+            android:layout_marginLeft="6dp"
+            android:text="1037公园"
+            android:textSize="18dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/headline_button1"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="30dp"
+            android:text="房间号：1127"
+            android:textSize="10dp"
+            />
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="设置"
+                android:layout_weight="1"
+                android:background="#00000000"
+                />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="声音"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:background="#00000000"
+                />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="举手"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:background="#00000000"
+                />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

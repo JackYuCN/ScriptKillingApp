@@ -31,6 +31,21 @@
             android:name=".view.activity.GameStartActivity"
             android:exported="false" />
         <activity
+            android:name=".view.activity.GamePage2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.GamePage3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.GamePage4Activity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.GamePage5Activity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.GamePage6Activity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.GameOverActivity"
             android:exported="false" />
         <activity
