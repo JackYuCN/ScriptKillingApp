@@ -1,76 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/gameStartActivity_header"
+        layout="@layout/gameroom_headline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            layout = "@layout/gameroom_headline1"
-            />
+        android:layout_height="wrap_content"
+        android:layout_above="@id/gameStartActivity_bottom"
+        android:layout_below="@id/gameStartActivity_header"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="9"
-            android:orientation="horizontal"
-            >
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@drawable/bottom_script_background"
+            android:orientation="vertical"
+            android:padding="5dp">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:orientation="vertical"
-                android:padding="5dp" >
 
-                <Spinner
-                    android:id="@+id/gamepage2_dropdown"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:spinnerMode="dropdown" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/gamepage2_scriptsRecView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/gr_intro_item_image"
-                    android:layout_marginTop="10dp"
-                    />
-
-            </LinearLayout>
-
-            <include
-                layout = "@layout/gameroom_headsculpture"
-                android:layout_width="0dp"
+            <Spinner
+                android:id="@+id/gamepage2_dropdown"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                />
+                android:spinnerMode="dropdown" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/gray" />
+
+            <ScrollView
+                android:id="@+id/gamepage2_scriptsRecView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/script_episode1"
+                    android:textSize="18sp" />
+
+            </ScrollView>
 
         </LinearLayout>
 
         <include
-            layout = "@layout/gameroom_belowline1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="15dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            />
+            layout="@layout/gameroom_headsculpture"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/gameStartActivity_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:id="@+id/gameStartActivity_bottom_tv1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginRight="60dp"
+            android:maxLines="1"
+            android:text="测试聊天" />
+
+        <TextView
+            android:id="@+id/gameStartActivity_bottom_tv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gameStartActivity_bottom_tv1"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="10dp"
+            android:maxLines="1"
+            android:text="测试聊天" />
+
+        <TextView
+            android:id="@+id/gameStartActivity_tv_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="15dp"
+            android:text="03:00"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/gameStartActivity_bottom_ivMicrophone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gameStartActivity_bottom_tv2"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/activity_iv_microphone" />
+
+        <ImageView
+            android:id="@+id/gameStartActivity_bottom_ivScript"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/gameStartActivity_bottom_ivMicrophone"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toRightOf="@id/gameStartActivity_bottom_ivMicrophone"
+            android:src="@drawable/activity_iv_script" />
+
+        <ImageView
+            android:id="@+id/gameStartActivity_bottom_ivClue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/gameStartActivity_bottom_ivMicrophone"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toRightOf="@id/gameStartActivity_bottom_ivScript"
+            android:src="@drawable/activity_iv_clue" />
+
+        <ImageView
+            android:id="@+id/gameStartActivity_bottom_ivNotes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/gameStartActivity_bottom_ivMicrophone"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toRightOf="@id/gameStartActivity_bottom_ivClue"
+            android:src="@drawable/activity_iv_notes" />
+
+        <ImageView
+            android:id="@+id/gameStartActivity_bottom_ivFaces"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/gameStartActivity_bottom_ivMicrophone"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toRightOf="@id/gameStartActivity_bottom_ivNotes"
+            android:src="@drawable/activity_iv_face" />
+
+        <Button
+            android:id="@+id/gameStartActivity_btnConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gameStartActivity_tv_countdown"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:text="下一阶段" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
 

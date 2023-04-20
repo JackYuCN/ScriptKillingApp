@@ -37,7 +37,7 @@ public class AddScriptActivity extends AppCompatActivity {
     private EditText mEdtTextPassword;
     private Button mBtnConfirm;
     private FirebaseUser mCurrentUser;
-    private DatabaseReference mDatabaseRef;
+    private DatabaseReference mRef;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,8 +50,8 @@ public class AddScriptActivity extends AppCompatActivity {
 
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         assert mCurrentUser != null;
-        mDatabaseRef = FirebaseDatabase.getInstance(URL).getReference();
-        assert mDatabaseRef != null;
+        mRef = FirebaseDatabase.getInstance(URL).getReference();
+        assert mRef != null;
 
         initWindow();
         initListener();
@@ -78,14 +78,12 @@ public class AddScriptActivity extends AppCompatActivity {
                     );
                     DatabaseReference ref;
                     if (mTxtTimeHint.getText().toString().trim().equals("即开房")) {
-                        ref = mDatabaseRef.child("rooms").child("right_now").push();
-                        ref.child("settings").setValue(roomSetting);
-                        ref.child("script").setValue(scriptTitle);
+                        ref = mRef.child("rooms").child("right_now").push();
                     } else {
-                        ref = mDatabaseRef.child("rooms").child("booking").push();
-                        ref.child("settings").setValue(roomSetting);
-                        ref.child("script").setValue(scriptTitle);
+                        ref = mRef.child("rooms").child("booking").push();
                     }
+                    ref.child("settings").setValue(roomSetting);
+                    ref.child("script").setValue(scriptTitle);
                     Toast.makeText(AddScriptActivity.this, "成功预约", Toast.LENGTH_SHORT).show();
                     finish();
                 }

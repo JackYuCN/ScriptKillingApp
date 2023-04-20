@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -22,9 +23,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.competition.scriptkillingapp.R;
 import com.competition.scriptkillingapp.adapter.ScriptAdapter;
 import com.competition.scriptkillingapp.model.ScriptTitle;
+import com.competition.scriptkillingapp.model.User;
 import com.competition.scriptkillingapp.util.MyNestedScrollView;
 import com.competition.scriptkillingapp.view.activity.AddScriptActivity;
+import com.competition.scriptkillingapp.view.activity.GamePage2Activity;
+import com.competition.scriptkillingapp.view.activity.GamePage3Activity;
+import com.competition.scriptkillingapp.view.activity.GamePage4Activity;
+import com.competition.scriptkillingapp.view.activity.GamePage5Activity;
+import com.competition.scriptkillingapp.view.activity.GamePage6Activity;
+import com.competition.scriptkillingapp.view.activity.GameStartActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,20 +57,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private MyNestedScrollView homeParent;
     private FloatingActionButton fabAddScript;
     private SearchView searchEdtText;
+    private FirebaseUser mCurrentUser;
+    private ImageView IsPlaying;
+    private int stage;
+    DatabaseReference mRef;
 
     @Override
     public void onClick(View v) {
-        Intent intent;
         switch (v.getId()) {
             case R.id.home_txtBookingRoom:
                 changeState(false);
                 break;
             case R.id.home_txtReadyToOpenRoom:
                 changeState(true);
-                break;
-            case R.id.home_fabAddScript:
-                intent = new Intent(v.getContext(), AddScriptActivity.class);
-                startActivity(intent);
                 break;
             default:
                 break;
@@ -91,8 +100,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         spinner3 = view.findViewById(R.id.home_spinner3);
         fabAddScript = view.findViewById(R.id.home_fabAddScript);
         searchEdtText = view.findViewById(R.id.home_searchScripts);
-
         scriptsRecView = view.findViewById(R.id.home_scriptsRecView);
+        IsPlaying = view.findViewById(R.id.home_imagePlaying);
+
+        mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert mCurrentUser != null;
+
+        mRef = FirebaseDatabase.getInstance(URL).getReference();
     }
     private void initRecView() {
         scriptsRecView.setHasFixedSize(true);
@@ -101,8 +115,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         adapterReady = new ScriptAdapter(view.getContext());
         adapterBook = new ScriptAdapter(view.getContext());
 
-        DatabaseReference bookingRef = FirebaseDatabase.getInstance(URL).getReference("rooms/booking");
-        bookingRef.addValueEventListener(new ValueEventListener() {
+        mRef.child("rooms").child("booking")
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 scriptsListBook.clear();
@@ -119,8 +133,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        DatabaseReference rightNowRef = FirebaseDatabase.getInstance(URL).getReference("rooms/right_now");
-        rightNowRef.addValueEventListener(new ValueEventListener() {
+        mRef.child("rooms").child("right_now")
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 scriptsListReady.clear();
@@ -228,9 +242,86 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
     private void initListener() {
 
+        mRef.child("Users").child(mCurrentUser.getUid())
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                if (user.isPlaying()) {
+                    fabAddScript.setVisibility(View.GONE);
+                    fabAddScript.setOnClickListener(null);
+                    IsPlaying.setVisibility(View.VISIBLE);
+                    //设置监听器
+                    IsPlaying.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String gameIdx = user.getGameIdx();
+                            Log.d(TAG, "onClick: " + gameIdx);
+                            // 获取当前stages值
+                            mRef.child("Games").child(gameIdx).child("stages")
+                                    .addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    stage = snapshot.getValue(Integer.class);
+                                    Intent intent = null;
+                                    switch (stage) {
+                                        case 1:
+                                            intent = new Intent(getContext(), GameStartActivity.class);
+                                            break;
+                                        case 2:
+                                            intent = new Intent(getContext(), GamePage2Activity.class);
+                                            break;
+                                        case 3:
+                                            intent = new Intent(getContext(), GamePage3Activity.class);
+                                            break;
+                                        case 4:
+                                            intent = new Intent(getContext(), GamePage4Activity.class);
+                                            break;
+                                        case 5:
+                                            intent = new Intent(getContext(), GamePage5Activity.class);
+                                            break;
+                                        case 6:
+                                            intent = new Intent(getContext(), GamePage6Activity.class);
+                                            break;
+                                        default:
+                                            assert false;
+                                    }
+                                    // 获取stage以后关闭listener
+                                    mRef.child("Games").child(gameIdx)
+                                            .child("stages").removeEventListener(this);
+                                    intent.putExtra("gameIdx", gameIdx);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    IsPlaying.setVisibility(View.GONE);
+                    IsPlaying.setOnClickListener(null);
+                    fabAddScript.setVisibility(View.VISIBLE);
+                    fabAddScript.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(v.getContext(), AddScriptActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         txtReadyRoom.setOnClickListener(this);
         txtBookRoom.setOnClickListener(this);
-        fabAddScript.setOnClickListener(this);
         searchEdtText.setOnClickListener(this);
 
         homeParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

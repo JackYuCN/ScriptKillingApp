@@ -61,6 +61,16 @@
                     android:text="预约房"
                     android:textSize="20sp" />
 
+                <ImageView
+                    android:id="@+id/home_imagePlaying"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/home_txtBookingRoom"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="1dp"
+                    android:src="@drawable/playing" />
+
                 <Spinner
                     android:id="@+id/home_spinner1"
                     android:layout_width="wrap_content"

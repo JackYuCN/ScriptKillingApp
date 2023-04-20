@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.competition.scriptkillingapp.R;
 import com.competition.scriptkillingapp.adapter.GameRoomCharacterAdapter;
 import com.competition.scriptkillingapp.model.Script;
+import com.competition.scriptkillingapp.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,7 +38,7 @@ public class GameStartActivity extends AppCompatActivity {
     final String TAG = "SynchronizeCheck";
     final String URL = "https://scriptkillingapp-default-rtdb.asia-southeast1.firebasedatabase.app/";
     private Button mBtnReady, mBtnSend;
-    private DatabaseReference mDatabaseRef;
+    private DatabaseReference mRef;
     private TextView mTxtViewCountDown;
     private int cnt;
     private String gameIdx;
@@ -58,6 +59,7 @@ public class GameStartActivity extends AppCompatActivity {
 
         initWindow();
         initWidget();
+        setUserState();
         initTimer();
         initListener();
 
@@ -74,23 +76,15 @@ public class GameStartActivity extends AppCompatActivity {
 //        scriptsRecView.setAdapter(adapter);
 //        scriptsRecView.setLayoutManager(new LinearLayoutManager(this));
 //
-//        initView();
-
     }
 
+    private void setUserState() {
+        mRef.child("Users").child(mCurrentUser.getUid()).child("playing").setValue(true);
+        mRef.child("Users").child(mCurrentUser.getUid()).child("gameIdx").setValue(gameIdx);
+    }
 
-    private Button btn;
-
-    private void initView() {
-        btn = (Button) findViewById(R.id.belowline_button2);
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(GameStartActivity.this, GamePage2Activity.class);
-                startActivity(intent);
-            }
-        });
+    private void updateGameState() {
+        mRef.child("Games").child(gameIdx).child("stages").setValue(2);
     }
 
     private void initWindow() {
@@ -125,37 +119,20 @@ public class GameStartActivity extends AppCompatActivity {
         mBtnSend = findViewById(R.id.belowline_btnSend);
         ed1 = findViewById(R.id.belowline_et);
 
-        mDatabaseRef = FirebaseDatabase.getInstance(URL).getReference("test");
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         assert mCurrentUser != null;
+
+        mRef = FirebaseDatabase.getInstance(URL).getReference();
     }
 
     private void initListener() {
-        mDatabaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                cnt = snapshot.child("cnt").getValue(Integer.class);
-                Log.d(TAG, "onDataChange: New cnt --> " + cnt);
-                if (cnt == 0) {
-                    Intent i = new Intent(GameStartActivity.this, GamePage2Activity.class);
-                    startActivity(i);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
         mBtnReady.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cnt -= 1;
-                Log.d(TAG, "cnt ===> " + cnt);
-                mDatabaseRef.child("cnt").setValue(cnt);
-                mBtnReady.setText("已准备");
-                mBtnReady.setClickable(false);
-                timer.cancel();
+                Intent intent = new Intent(GameStartActivity.this, GamePage2Activity.class);
+                intent.putExtra("gameIdx", gameIdx);
+                updateGameState();
+                startActivity(intent);
             }
         });
         mBtnSend.setOnClickListener(new View.OnClickListener() {
@@ -172,19 +149,17 @@ public class GameStartActivity extends AppCompatActivity {
     }
 
     private void sendMessage(String sender, String message) {
-        DatabaseReference ref = FirebaseDatabase.getInstance(URL).getReference("Games/" + gameIdx);
-        assert ref != null;
-
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
         hashMap.put("message", message);
 
-        ref.child("Chats").push().setValue(hashMap);
+        mRef.child("Games").child(gameIdx).child("Chats")
+                        .push().setValue(hashMap);
     }
 
     private void readMessage() {
-        DatabaseReference mRefChat = FirebaseDatabase.getInstance(URL).getReference("Games/" + gameIdx + "/Chats");
-        mRefChat.addValueEventListener(new ValueEventListener() {
+        mRef.child("Games").child(gameIdx).child("Chats")
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String sender = "", message = "";
@@ -199,9 +174,7 @@ public class GameStartActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 }

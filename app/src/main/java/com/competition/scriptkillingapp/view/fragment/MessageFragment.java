@@ -39,6 +39,7 @@ public class MessageFragment extends Fragment {
     private MyNestedScrollView messageParent;
     private ArrayList<Message> mPrepareRooms;
     private ArrayList<User> mUsers;
+    private DatabaseReference mRef;
 
     @Nullable
     @Override
@@ -49,6 +50,8 @@ public class MessageFragment extends Fragment {
         messageParent = view.findViewById(R.id.message_parent);
         prepareRoomMsgRecView = view.findViewById(R.id.message_prepareRoomRecView);
         otherMsgRecView = view.findViewById(R.id.message_otherMsgRecView);
+
+        mRef = FirebaseDatabase.getInstance(URL).getReference();
 
         initRecView();
         initListener();
@@ -79,8 +82,7 @@ public class MessageFragment extends Fragment {
     private void readUsers() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         Log.d(TAG, "current user's id " + firebaseUser.getUid());
-        DatabaseReference ref = FirebaseDatabase.getInstance(URL).getReference("Users");
-        ref.addValueEventListener(new ValueEventListener() {
+        mRef.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUsers.clear();

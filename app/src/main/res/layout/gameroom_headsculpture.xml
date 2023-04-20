@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/gameroom_heads_parent"
     app:cardCornerRadius="15dp"
-    app:cardBackgroundColor="@color/transparent_background"
+    app:cardBackgroundColor="@android:color/transparent"
     app:cardElevation="0dp">
 
     <LinearLayout

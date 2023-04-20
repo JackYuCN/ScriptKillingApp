@@ -3,79 +3,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/chat_toolbar">
-
-
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/chat_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:padding="5dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/arrow_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/arrow_back"/>
+                    android:src="@drawable/arrow_back" />
 
                 <TextView
-                    android:layout_toRightOf="@id/arrow_back"
                     android:id="@+id/chatter_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/arrow_back"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@id/arrow_back"
                     android:text="Chatter Name"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="15dp"/>
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
 
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/chat_gray"
         android:layout_above="@id/typing_body"
         android:layout_below="@id/chat_toolbar"
-        android:id="@+id/chat_body"/>
+        android:background="@color/chat_gray" />
 
     <RelativeLayout
-        android:layout_alignParentBottom="true"
+        android:id="@+id/typing_body"
         android:layout_width="match_parent"
-        android:padding="5dp"
         android:layout_height="wrap_content"
-        android:id="@+id/typing_body">
+        android:layout_alignParentBottom="true"
+        android:padding="5dp">
 
         <EditText
             android:id="@+id/edtText_msg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/btn_send"
             android:background="@android:color/transparent"
-            android:hint="请输入..."
-            android:layout_centerVertical="true"/>
+            android:hint="请输入..." />
 
         <Button
             android:id="@+id/btn_send"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:text="确认"
-            android:backgroundTint="@color/blue"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"/>
-
+            android:layout_alignParentRight="true"
+            android:backgroundTint="@color/blue"
+            android:text="确认" />
 
 
     </RelativeLayout>

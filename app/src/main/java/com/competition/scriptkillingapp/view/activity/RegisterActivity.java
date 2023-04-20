@@ -78,10 +78,12 @@ public class RegisterActivity extends AppCompatActivity {
                                         mRef = FirebaseDatabase.getInstance(URL)
                                                 .getReference("Users").child(Uid);
 
-                                        HashMap<String, String> hashMap = new HashMap<>();
+                                        HashMap<String, Object> hashMap = new HashMap<>();
                                         hashMap.put("id", Uid);
                                         hashMap.put("username", mUserName);
                                         hashMap.put("imageURL", "default");
+                                        hashMap.put("playing", false);
+                                        hashMap.put("roomIdx", null);
 
                                         mRef.setValue(hashMap)
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {

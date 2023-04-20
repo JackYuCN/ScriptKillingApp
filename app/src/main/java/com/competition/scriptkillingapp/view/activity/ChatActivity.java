@@ -42,7 +42,7 @@ public class ChatActivity extends AppCompatActivity {
     private Intent intent;
     private ImageView mBackImage;
     private TextView mChatterName;
-    private DatabaseReference mRefChatter, mRefChat;
+    private DatabaseReference mRef;
     private FirebaseUser mCurrentUser;
     private Button mBtnSend;
     private EditText mEdtTextMsg;
@@ -86,8 +86,8 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        mRefChatter = FirebaseDatabase.getInstance(URL).getReference("Users").child(mChatterId);
-        mRefChatter.addValueEventListener(new ValueEventListener() {
+        mRef.child("Users").child(mChatterId)
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User chatter = snapshot.getValue(User.class);
@@ -119,6 +119,8 @@ public class ChatActivity extends AppCompatActivity {
 
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         assert mCurrentUser != null;
+
+        mRef = FirebaseDatabase.getInstance(URL).getReference();
     }
 
     /**
@@ -140,14 +142,12 @@ public class ChatActivity extends AppCompatActivity {
      * @param message  -->  发送信息
      */
     private void sendMessage(String sender, String receiver, String message) {
-        DatabaseReference ref = FirebaseDatabase.getInstance(URL).getReference();
-
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
 
-        ref.child("Chats").push().setValue(hashMap);
+        mRef.child("Chats").push().setValue(hashMap);
     }
 
     /**
@@ -158,8 +158,7 @@ public class ChatActivity extends AppCompatActivity {
      * @param imageUrl --> 图片网址（头像）
      */
     private void readMessage(String my, String sender, String imageUrl) {
-        mRefChat = FirebaseDatabase.getInstance(URL).getReference("Chats");
-        mRefChat.addValueEventListener(new ValueEventListener() {
+        mRef.child("Chats").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // 遍历Chats，将所有与用户相关的信息存储到chatMessages数组中
