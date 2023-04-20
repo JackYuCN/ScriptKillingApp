@@ -12,6 +12,8 @@ import com.competition.scriptkillingapp.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.InputStream;
+
 public class GamePage3Activity extends AppCompatActivity {
 
     final String URL = "https://scriptkillingapp-default-rtdb.asia-southeast1.firebasedatabase.app/";
