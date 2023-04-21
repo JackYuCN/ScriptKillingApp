@@ -70,9 +70,9 @@ public class ScriptAdapter extends RecyclerView.Adapter<ScriptAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 DatabaseReference ref = FirebaseDatabase.getInstance(URL).getReference("Games").push();
-                ref.child("stages").setValue(1);
                 Intent intent = new Intent(context, GameStartActivity.class);
                 intent.putExtra("gameIdx", ref.getKey());
+                intent.putExtra("scriptName", "1037公园");
                 context.startActivity(intent);
             }
         });

@@ -27,13 +27,24 @@
 
     <ImageView
         android:id="@+id/add_script_imageScript"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
         android:layout_below="@id/add_script_title"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/script_cover"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="26dp" />
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1037公园"
+        android:layout_toLeftOf="@id/add_script_imageScript"
+        android:layout_alignBottom="@id/add_script_txtChooseScript"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/add_script_txtOpenTime"
@@ -52,7 +63,7 @@
         android:hint="请选择开本时间"
         android:layout_alignBottom="@id/add_script_txtOpenTime"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="20dp" />
+        android:layout_marginEnd="25dp" />
 
     <TextView
         android:id="@+id/add_script_roomPermission"
@@ -72,7 +83,7 @@
         android:src="@drawable/diffsex"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="60dp"
-        android:layout_marginEnd="10dp" />
+        android:layout_marginEnd="18dp" />
 
     <ImageView
         android:id="@+id/add_script_btn_roomLocked"
@@ -101,7 +112,7 @@
         android:layout_below="@id/add_script_btnAllowDiffSex"
         android:src="@drawable/level25"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="18dp"
         android:layout_marginTop="64dp" />
 
     <ImageView

@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/game_room1_item_image"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background" />
 
@@ -26,32 +26,32 @@
             android:id="@+id/game_room1_item_txtScriptName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/game_room1_item_image"
             android:text="姓名"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/game_room1_item_button"
-            android:layout_width="45dp"
+            android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="false"
             android:backgroundTint="@color/gray"
             android:text="选择"
-            android:textSize="10dp" />
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/game_room1_item_txtScriptType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/game_room1_item_txtScriptName"
+            android:layout_alignBottom="@id/game_room1_item_image"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_toRightOf="@id/game_room1_item_image"
             android:text="介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍"
-            android:textSize="8sp"/>
+            android:textSize="12sp"/>
 
 
     </RelativeLayout>

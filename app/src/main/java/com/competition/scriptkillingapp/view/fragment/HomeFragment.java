@@ -1,6 +1,7 @@
 package com.competition.scriptkillingapp.view.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
@@ -22,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.competition.scriptkillingapp.R;
 import com.competition.scriptkillingapp.adapter.ScriptAdapter;
+import com.competition.scriptkillingapp.model.ScriptCharacter;
 import com.competition.scriptkillingapp.model.ScriptTitle;
 import com.competition.scriptkillingapp.model.User;
 import com.competition.scriptkillingapp.util.MyNestedScrollView;
@@ -32,6 +35,9 @@ import com.competition.scriptkillingapp.view.activity.GamePage4Activity;
 import com.competition.scriptkillingapp.view.activity.GamePage5Activity;
 import com.competition.scriptkillingapp.view.activity.GamePage6Activity;
 import com.competition.scriptkillingapp.view.activity.GameStartActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,10 +46,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
+    final String URL_db = "gs://scriptkillingapp.appspot.com";
     final String URL = "https://scriptkillingapp-default-rtdb.asia-southeast1.firebasedatabase.app/";
     private static final String TAG = "HomeFragment";
     private View view;
@@ -60,6 +69,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private FirebaseUser mCurrentUser;
     private ImageView IsPlaying;
     private int stage;
+    private Button btnAddData;
     DatabaseReference mRef;
 
     @Override
@@ -70,6 +80,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.home_txtReadyToOpenRoom:
                 changeState(true);
+                break;
+            case R.id.home_addScript:
+                mRef.child("ScriptsLib").child("1037公园").child("Characters").push()
+                        .setValue(new ScriptCharacter("穆镶", "探险队队长，校园内知名的学霸，性格独立，有点神秘。", "female"));
+                mRef.child("ScriptsLib").child("1037公园").child("Characters").push()
+                        .setValue(new ScriptCharacter("穆一", "穆镶的亲弟弟，与穆镶关系紧密，对古董宝藏有所了解。", "male"));
+                mRef.child("ScriptsLib").child("1037公园").child("Characters").push()
+                        .setValue(new ScriptCharacter("方茴", "清远高中的数学老师，探险队管理员，聪明机智。", "female"));
+                mRef.child("ScriptsLib").child("1037公园").child("Characters").push()
+                        .setValue(new ScriptCharacter("方北辰", "方茴的堂哥，清远高中的英语老师，对古董宝藏有浓厚兴趣。", "male"));
+                mRef.child("ScriptsLib").child("1037公园").child("Characters").push()
+                        .setValue(new ScriptCharacter("宋婷", "探险队成员，温文尔雅，学霸，善良贴心，对古董宝藏有一定了解", "female"));
+                mRef.child("ScriptsLib").child("1037公园").child("Characters").push()
+                        .setValue(new ScriptCharacter("华峰", "探险队成员，运动员，热血阳光，与穆镶关系友好，对古董宝藏有好奇心", "male"));
                 break;
             default:
                 break;
@@ -102,6 +126,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         searchEdtText = view.findViewById(R.id.home_searchScripts);
         scriptsRecView = view.findViewById(R.id.home_scriptsRecView);
         IsPlaying = view.findViewById(R.id.home_imagePlaying);
+
+        btnAddData = view.findViewById(R.id.home_addScript);
+        btnAddData.setOnClickListener(this);
 
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         assert mCurrentUser != null;

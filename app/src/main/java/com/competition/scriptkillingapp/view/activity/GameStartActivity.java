@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.competition.scriptkillingapp.R;
 import com.competition.scriptkillingapp.adapter.GameRoomCharacterAdapter;
 import com.competition.scriptkillingapp.model.Script;
+import com.competition.scriptkillingapp.model.ScriptCharacter;
 import com.competition.scriptkillingapp.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,6 +43,7 @@ public class GameStartActivity extends AppCompatActivity {
     private TextView mTxtViewCountDown;
     private int cnt;
     private String gameIdx;
+    private String scriptName;
     private CountDownTimer timer;
     private RecyclerView scriptsRecView;
     private TextView tv1, tv2;
@@ -55,7 +57,8 @@ public class GameStartActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         gameIdx = intent.getStringExtra("gameIdx");
-        Log.d(TAG, "gameIdx: " + gameIdx);
+        scriptName = intent.getStringExtra("scriptName");
+        Log.d(TAG, "gameIdx: " + gameIdx + "\nscriptName: " + scriptName);
 
         initWindow();
         initWidget();
@@ -63,18 +66,25 @@ public class GameStartActivity extends AppCompatActivity {
         initTimer();
         initListener();
 
-//        scriptsRecView = findViewById(R.id.gr_intro_scriptsRecView);
-//
-//        ArrayList<Script> scripts = new ArrayList<>();
-//        for (int i = 0; i < 6; i++) {
-//            scripts.add(new Script("测试样例" + i));
-//        }
-//
-//        GameRoomCharacterAdapter adapter = new GameRoomCharacterAdapter(this);
-//        adapter.setScripts(scripts);
-//
-//        scriptsRecView.setAdapter(adapter);
-//        scriptsRecView.setLayoutManager(new LinearLayoutManager(this));
+        GameRoomCharacterAdapter adapter = new GameRoomCharacterAdapter(this);
+        ArrayList<ScriptCharacter> scripts = new ArrayList<>();
+        mRef.child("ScriptsLib").child("1037公园").child("Characters")
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                scripts.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    scripts.add(dataSnapshot.getValue(ScriptCharacter.class));
+                }
+                adapter.setScripts(scripts);
+                scriptsRecView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 //
     }
 
@@ -118,6 +128,9 @@ public class GameStartActivity extends AppCompatActivity {
         tv2 = findViewById(R.id.belowline_tv2);
         mBtnSend = findViewById(R.id.belowline_btnSend);
         ed1 = findViewById(R.id.belowline_et);
+
+        scriptsRecView = findViewById(R.id.gr_intro_scriptsRecView);
+        scriptsRecView.setLayoutManager(new LinearLayoutManager(this));
 
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         assert mCurrentUser != null;

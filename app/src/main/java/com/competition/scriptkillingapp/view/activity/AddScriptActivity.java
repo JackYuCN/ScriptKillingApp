@@ -69,7 +69,7 @@ public class AddScriptActivity extends AppCompatActivity {
                 } else {
 
                     // 这里直接给出剧本定义，实际实现中应该从数据库读出
-                    ScriptTitle scriptTitle = new ScriptTitle("测试剧本", 3, 3);
+                    ScriptTitle scriptTitle = new ScriptTitle("测试剧本", 2);
 
                     RoomSetting roomSetting = new RoomSetting(
                             mEdtTextPassword.getText().toString(),
