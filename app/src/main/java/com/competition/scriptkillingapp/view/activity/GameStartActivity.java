@@ -109,7 +109,7 @@ public class GameStartActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 RoomSetting rs = snapshot.getValue(RoomSetting.class);
                 Log.d(TAG, "rs ---> " + rs.toString());
-                profilesAdapter.setProfiles(rs.getPlayers());
+                profilesAdapter.setProfilesByUid(rs.getPlayers());
                 profileRecView.setAdapter(profilesAdapter);
             }
 
