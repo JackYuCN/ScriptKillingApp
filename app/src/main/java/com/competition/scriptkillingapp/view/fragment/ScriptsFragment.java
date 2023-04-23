@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.competition.scriptkillingapp.R;
 import com.competition.scriptkillingapp.adapter.ScriptAdapter;
-import com.competition.scriptkillingapp.model.ScriptTitle;
+import com.competition.scriptkillingapp.model.Script;
 import com.competition.scriptkillingapp.util.MyNestedScrollView;
 
 import java.util.ArrayList;
@@ -44,13 +44,13 @@ public class ScriptsFragment extends Fragment {
     }
 
     private void initRecView() {
-        ArrayList<ScriptTitle> scriptTitles = new ArrayList<>();
+        ArrayList<Script> scriptTitles = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            scriptTitles.add(new ScriptTitle("测试样例" + i, 2));
+            scriptTitles.add(new Script("《1037公园》", "情感,入门", "4.8", 6, 5));
         }
 
         ScriptAdapter adapter = new ScriptAdapter(view.getContext());
-        adapter.setScripts(scriptTitles);
+        adapter.setScriptInfo(scriptTitles);
 
         scriptsRecView.setAdapter(adapter);
         scriptsRecView.setLayoutManager(new LinearLayoutManager(view.getContext()));

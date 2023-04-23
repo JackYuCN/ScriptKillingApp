@@ -23,6 +23,13 @@ import com.competition.scriptkillingapp.model.MyAppGlideModule;
 import com.competition.scriptkillingapp.model.Script;
 import com.competition.scriptkillingapp.model.ScriptCharacter;
 import com.competition.scriptkillingapp.view.activity.GameStartActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -31,6 +38,7 @@ import java.util.ArrayList;
 public class GameRoomCharacterAdapter extends RecyclerView.Adapter<GameRoomCharacterAdapter.ViewHolder> {
 
     private static final String URL_STORAGE = "gs://scriptkillingapp.appspot.com";
+    final String URL = "https://scriptkillingapp-default-rtdb.asia-southeast1.firebasedatabase.app/";
     private static final String TAG = "GameRoomCharacterAdapter";
     ArrayList<ScriptCharacter> scripts;
 
@@ -66,17 +74,40 @@ public class GameRoomCharacterAdapter extends RecyclerView.Adapter<GameRoomChara
                 .into(holder.ivCharacterImage);
         holder.txtName.setText(scripts.get(position).getName());
         holder.txtIntro.setText(scripts.get(position).getIntro());
-        holder.parent.setOnClickListener(new View.OnClickListener() {
+
+        DatabaseReference ref = FirebaseDatabase.getInstance(URL).getReference();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        holder.btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, scripts.get(position).getName() + " clicked", Toast.LENGTH_SHORT).show();
+                ref.child("Users").child(user.getUid()).child("act_as")
+                        .setValue(holder.txtName.getText().toString());
             }
         });
-        holder.btnStart.setOnClickListener(new View.OnClickListener() {
+        ref.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, GameStartActivity.class);
-                context.startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean act_flag = false;
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    String act_as = ds.child("act_as").getValue(String.class);
+                    if (act_as != null && !act_as.equals("null")) { // user有实验的角色
+                        if (act_as.equals(holder.txtName.getText().toString())) { // 按钮为本按钮
+                            holder.btnChoose.setText(ds.child("username").getValue(String.class) + "·饰");
+                            holder.btnChoose.setClickable(false);
+                            act_flag = true;
+                            break;
+                        }
+                    }
+                }
+                if (!act_flag) {
+                    holder.btnChoose.setText("选择这个角色");
+                    holder.btnChoose.setClickable(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
@@ -88,7 +119,7 @@ public class GameRoomCharacterAdapter extends RecyclerView.Adapter<GameRoomChara
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txtName, txtIntro;
-        private Button btnStart;
+        private Button btnChoose;
         private ImageView ivCharacterImage;
         private CardView parent;
 
@@ -100,7 +131,7 @@ public class GameRoomCharacterAdapter extends RecyclerView.Adapter<GameRoomChara
             ivCharacterImage = itemView.findViewById(R.id.game_room1_item_image);
 
             parent = itemView.findViewById(R.id.gameroom_character_intro_parent);
-            btnStart = itemView.findViewById(R.id.game_room1_item_button);
+            btnChoose = itemView.findViewById(R.id.game_room1_item_button);
         }
     }
 }

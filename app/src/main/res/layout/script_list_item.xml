@@ -29,6 +29,7 @@
             android:layout_below="@id/script_list_item_image"
             android:layout_marginTop="8dp"
             android:text="热评：正处于测试阶段正处于测试阶段正处于测试阶段正处于测试阶段正处于测试阶段"
+            android:maxLines="1"
             android:textSize="12dp" />
 
         <TextView

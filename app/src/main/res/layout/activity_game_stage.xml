@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/black"
     android:layout_height="match_parent">
 
     <include
@@ -28,7 +29,6 @@
             android:orientation="vertical"
             android:padding="5dp">
 
-
             <Spinner
                 android:id="@+id/gamepage2_dropdown"
                 android:layout_width="match_parent"
@@ -42,18 +42,10 @@
                 android:layout_marginBottom="5dp"
                 android:background="@color/gray" />
 
-            <ScrollView
-                android:id="@+id/gamepage2_scriptsRecView"
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/gamepage_fragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/script_episode1"
-                    android:textSize="18sp" />
-
-            </ScrollView>
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
@@ -159,6 +151,19 @@
             android:layout_marginEnd="10dp"
             android:layout_toRightOf="@id/gameStartActivity_bottom_ivNotes"
             android:src="@drawable/activity_iv_face" />
+
+        <TextView
+            android:id="@+id/game_stage_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="15dp"
+            android:text="03:00"
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/gameStartActivity_btnConfirm"

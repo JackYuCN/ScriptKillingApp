@@ -48,18 +48,18 @@ public class GamePage4Activity extends AppCompatActivity {
 
 
         scriptsRecView = findViewById(R.id.gamepage4_scriptsRecView);
-
-        ArrayList<Script> scripts = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            scripts.add(new Script("这里是正文" ));
-        }
-
-
-        GamePage4Adapter adapter = new GamePage4Adapter(this);
-        adapter.setScripts(scripts);
-
-        scriptsRecView.setAdapter(adapter);
-        scriptsRecView.setLayoutManager(new LinearLayoutManager(this));
+//
+//        ArrayList<Script> scripts = new ArrayList<>();
+//        for (int i = 0; i < 3; i++) {
+//            scripts.add(new Script("这里是正文" ));
+//        }
+//
+//
+//        GamePage4Adapter adapter = new GamePage4Adapter(this);
+//        adapter.setScripts(scripts);
+//
+//        scriptsRecView.setAdapter(adapter);
+//        scriptsRecView.setLayoutManager(new LinearLayoutManager(this));
 
 
         initView();

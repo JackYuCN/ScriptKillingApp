@@ -12,18 +12,19 @@ import androidx.fragment.app.Fragment;
 
 import com.competition.scriptkillingapp.R;
 
-public class StageTwoFragment extends Fragment {
+public class StageThreeFragment extends Fragment {
 
-    private static final String TAG = "Stage 2";
+    private static final String TAG = "Stage 3";
     private View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_stage2, container, false);
+        view = inflater.inflate(R.layout.fragment_stage3, container, false);
 
         Log.d(TAG, "onCreateView: create fragment ===> R.layout.fragment_stage2");
 
         return view;
     }
+
 }

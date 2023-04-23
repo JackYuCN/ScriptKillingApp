@@ -2,12 +2,10 @@ package com.competition.scriptkillingapp.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,8 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.competition.scriptkillingapp.R;
 import com.competition.scriptkillingapp.model.Script;
-import com.competition.scriptkillingapp.view.activity.GamePage2Activity;
-import com.competition.scriptkillingapp.view.activity.GameStartActivity;
 
 import java.util.ArrayList;
 

@@ -5,8 +5,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
-    app:cardCornerRadius="15dp"
-    app:cardElevation="15dp">
+    android:background="@drawable/bottom_script_background"
+    android:backgroundTint="@color/background_second_level">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -17,9 +17,9 @@
         <ImageView
             android:id="@+id/gr_intro_item_image"
             android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background" />
+            android:src="@drawable/script_cover" />
 
 
         <TextView
@@ -29,16 +29,18 @@
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/gr_intro_item_image"
             android:text="剧本名称: Bla"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/gr_intro_item_txtScriptScroll"
+            android:id="@+id/gr_intro_item_txtScriptScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="4dp"
             android:layout_toRightOf="@id/gr_intro_item_txtScriptName"
             android:text="4.5分"
+            android:textColor="@color/white"
             android:textSize="12sp" />
 
 
@@ -48,10 +50,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/gr_intro_item_txtScriptName"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_toRightOf="@id/gr_intro_item_image"
             android:text="类型：BlaBlaBla"
-            android:textSize="14sp"/>
+            android:textColor="@color/white"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/gr_intro_item_txtScriptPeople"
@@ -59,10 +62,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/gr_intro_item_txtScriptType"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_toRightOf="@id/gr_intro_item_image"
             android:text="x人|x小时"
-            android:textSize="14sp"/>
+            android:textColor="@color/white"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/gr_intro_item_open_btn"
@@ -72,22 +76,22 @@
             android:layout_marginTop="70dp"
             android:backgroundTint="@color/gray"
             android:text="简介"
+            android:textColor="@color/white"
             android:textSize="12dp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/gray"
-            android:layout_below="@id/gr_intro_item_image"/>
+            android:layout_below="@id/gr_intro_item_image"
+            android:layout_marginTop="15dp"
+            android:background="@color/divide_line_gray" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/gr_intro_scriptsRecView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/gr_intro_item_image"
-            android:layout_marginTop="10dp"
-            />
+            android:layout_marginTop="10dp" />
 
     </RelativeLayout>
 

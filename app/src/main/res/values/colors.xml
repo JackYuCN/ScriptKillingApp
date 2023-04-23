@@ -12,5 +12,11 @@
     <color name="red">#EF291A</color>
     <color name="green">#66D73E</color>
     <color name="blue">#2782D7</color>
+    <color name="divide_line_gray">#3E413E</color>
     <color name="transparent_background">#20000000</color>
+    <color name="background_green">#4D504D</color>
+    <color name="background_second_level">#1C1E1C</color>
+    <color name="background_third_level">#2C2E2C</color>
+    <color name="background_fourth_level">#3A3C3A</color>
+    <color name="text_third_level">#99EDF5EB</color>
 </resources>

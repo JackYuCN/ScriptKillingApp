@@ -1,7 +1,6 @@
 package com.competition.scriptkillingapp.view.fragment;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,20 +23,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.competition.scriptkillingapp.R;
 import com.competition.scriptkillingapp.adapter.ScriptAdapter;
+import com.competition.scriptkillingapp.model.RoomSetting;
+import com.competition.scriptkillingapp.model.Script;
 import com.competition.scriptkillingapp.model.ScriptCharacter;
-import com.competition.scriptkillingapp.model.ScriptTitle;
 import com.competition.scriptkillingapp.model.User;
 import com.competition.scriptkillingapp.util.MyNestedScrollView;
 import com.competition.scriptkillingapp.view.activity.AddScriptActivity;
-import com.competition.scriptkillingapp.view.activity.GamePage2Activity;
-import com.competition.scriptkillingapp.view.activity.GamePage3Activity;
-import com.competition.scriptkillingapp.view.activity.GamePage4Activity;
-import com.competition.scriptkillingapp.view.activity.GamePage5Activity;
-import com.competition.scriptkillingapp.view.activity.GamePage6Activity;
+import com.competition.scriptkillingapp.view.activity.GameStageActivity;
 import com.competition.scriptkillingapp.view.activity.GameStartActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,8 +39,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -60,7 +51,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private Spinner spinner1, spinner2, spinner3;
     private ArrayAdapter<String> spinnerAdapterTime, spinnerAdapterCnt, spinnerAdapterType;
     private RecyclerView scriptsRecView;
-    private ArrayList<ScriptTitle> scriptsListReady = new ArrayList<>(), scriptsListBook = new ArrayList<>();
+    private ArrayList<Script> scriptsInfoListReady = new ArrayList<>(), scriptsInfoListBook = new ArrayList<>();
+    private ArrayList<RoomSetting> roomSettingListReady = new ArrayList<>(), roomSettingListBook = new ArrayList<>();
     private ScriptAdapter adapterReady, adapterBook;
     private RelativeLayout homeHeader;
     private MyNestedScrollView homeParent;
@@ -82,18 +74,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 changeState(true);
                 break;
             case R.id.home_addScript:
-                mRef.child("ScriptsLib").child("1037公园").child("Characters").push()
+                mRef = FirebaseDatabase.getInstance(URL).getReference().child("ScriptsLib").push();
+                mRef.child("Characters").push()
                         .setValue(new ScriptCharacter("穆镶", "探险队队长，校园内知名的学霸，性格独立，有点神秘。", "female"));
-                mRef.child("ScriptsLib").child("1037公园").child("Characters").push()
+                mRef.child("Characters").push()
                         .setValue(new ScriptCharacter("穆一", "穆镶的亲弟弟，与穆镶关系紧密，对古董宝藏有所了解。", "male"));
-                mRef.child("ScriptsLib").child("1037公园").child("Characters").push()
+                mRef.child("Characters").push()
                         .setValue(new ScriptCharacter("方茴", "清远高中的数学老师，探险队管理员，聪明机智。", "female"));
-                mRef.child("ScriptsLib").child("1037公园").child("Characters").push()
+                mRef.child("Characters").push()
                         .setValue(new ScriptCharacter("方北辰", "方茴的堂哥，清远高中的英语老师，对古董宝藏有浓厚兴趣。", "male"));
-                mRef.child("ScriptsLib").child("1037公园").child("Characters").push()
+                mRef.child("Characters").push()
                         .setValue(new ScriptCharacter("宋婷", "探险队成员，温文尔雅，学霸，善良贴心，对古董宝藏有一定了解", "female"));
-                mRef.child("ScriptsLib").child("1037公园").child("Characters").push()
+                mRef.child("Characters").push()
                         .setValue(new ScriptCharacter("华峰", "探险队成员，运动员，热血阳光，与穆镶关系友好，对古董宝藏有好奇心", "male"));
+                mRef.child("ScriptInfo").setValue(new Script("《1037公园》", "情感,入门", "4.8", 6, 5));
                 break;
             default:
                 break;
@@ -141,17 +135,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         adapterReady = new ScriptAdapter(view.getContext());
         adapterBook = new ScriptAdapter(view.getContext());
-
         mRef.child("rooms").child("booking")
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                scriptsListBook.clear();
+                scriptsInfoListBook.clear();
+                roomSettingListBook.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ScriptTitle scriptTitle = dataSnapshot.child("script").getValue(ScriptTitle.class);
-                    scriptsListBook.add(scriptTitle);
+                    Script scriptInfo = dataSnapshot.child("script_info").getValue(Script.class);
+                    scriptsInfoListBook.add(scriptInfo);
+                    RoomSetting roomSetting = dataSnapshot.child("settings").getValue(RoomSetting.class);
+                    roomSettingListBook.add(roomSetting);
                 }
-                adapterBook.setScripts(scriptsListBook);
+                adapterBook.setScriptInfo(scriptsInfoListBook);
+                adapterBook.setRoomSettings(roomSettingListBook);
             }
 
             @Override
@@ -164,12 +161,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                scriptsListReady.clear();
+                scriptsInfoListReady.clear();
+                roomSettingListReady.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ScriptTitle scriptTitle = dataSnapshot.child("script").getValue(ScriptTitle.class);
-                    scriptsListReady.add(scriptTitle);
+                    Script scriptInfo = dataSnapshot.child("script_info").getValue(Script.class);
+                    scriptsInfoListReady.add(scriptInfo);
+                    RoomSetting roomSetting = dataSnapshot.child("settings").getValue(RoomSetting.class);
+                    roomSettingListReady.add(roomSetting);
                 }
-                adapterReady.setScripts(scriptsListReady);
+                adapterReady.setScriptInfo(scriptsInfoListReady);
+                adapterReady.setRoomSettings(roomSettingListReady);
             }
 
             @Override
@@ -291,33 +292,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     stage = snapshot.getValue(Integer.class);
                                     Intent intent = null;
-                                    switch (stage) {
-                                        case 1:
-                                            intent = new Intent(getContext(), GameStartActivity.class);
-                                            break;
-                                        case 2:
-                                            intent = new Intent(getContext(), GamePage2Activity.class);
-                                            break;
-                                        case 3:
-                                            intent = new Intent(getContext(), GamePage3Activity.class);
-                                            break;
-                                        case 4:
-                                            intent = new Intent(getContext(), GamePage4Activity.class);
-                                            break;
-                                        case 5:
-                                            intent = new Intent(getContext(), GamePage5Activity.class);
-                                            break;
-                                        case 6:
-                                            intent = new Intent(getContext(), GamePage6Activity.class);
-                                            break;
-                                        default:
-                                            assert false;
+                                    if (stage == 0) {
+                                        intent = new Intent(getContext(), GameStartActivity.class);
+                                    } else {
+                                        intent = new Intent(getContext(), GameStageActivity.class);
+                                        intent.putExtra("stage", stage);
                                     }
+                                    intent.putExtra("gameIdx", gameIdx);
+                                    startActivity(intent);
                                     // 获取stage以后关闭listener
                                     mRef.child("Games").child(gameIdx)
                                             .child("stages").removeEventListener(this);
-                                    intent.putExtra("gameIdx", gameIdx);
-                                    startActivity(intent);
                                 }
 
                                 @Override

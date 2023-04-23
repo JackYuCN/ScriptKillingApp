@@ -5,20 +5,22 @@ import java.util.ArrayList;
 public class RoomSetting {
     private String password;
     private String openTime;
-    private ArrayList<String> players;
+    private ArrayList<String> players = new ArrayList<>();
+    private String gameRef;
+    private String roomRef;
 
     public RoomSetting() {
     }
 
-    public RoomSetting(String password, String TimeString, String roomOwnerUid) {
-        this.players = new ArrayList<>();
-        this.players.add(roomOwnerUid);
+    public RoomSetting(String password, String TimeString, String gameRef, String roomRef) {
         this.password = password;
         if (TimeString.trim() == "即开房") {
             this.openTime = null;
         } else {
             this.openTime = TimeString;
         }
+        this.gameRef = gameRef;
+        this.roomRef = roomRef;
     }
 
     public String getPassword() {
@@ -43,5 +45,32 @@ public class RoomSetting {
 
     public void setPlayers(ArrayList<String> players) {
         this.players = players;
+    }
+
+    public String getGameRef() {
+        return gameRef;
+    }
+
+    public void setGameRef(String gamesRef) {
+        this.gameRef = gamesRef;
+    }
+
+    public String getRoomRef() {
+        return roomRef;
+    }
+
+    public void setRoomRef(String roomRef) {
+        this.roomRef = roomRef;
+    }
+
+    @Override
+    public String toString() {
+        return "RoomSetting{" +
+                "password='" + password + '\'' +
+                ", openTime='" + openTime + '\'' +
+                ", players=" + players +
+                ", gameRef='" + gameRef + '\'' +
+                ", roomRef='" + roomRef + '\'' +
+                '}';
     }
 }

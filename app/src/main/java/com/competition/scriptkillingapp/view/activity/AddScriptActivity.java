@@ -19,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.competition.scriptkillingapp.R;
 import com.competition.scriptkillingapp.model.RoomSetting;
-import com.competition.scriptkillingapp.model.ScriptTitle;
+import com.competition.scriptkillingapp.model.Script;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -62,28 +62,29 @@ public class AddScriptActivity extends AppCompatActivity {
         mBtnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // TODO : 添加剧本
                 if (mBtnConfirm.getText().toString().equals("")) {
                     Toast.makeText(AddScriptActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
                 } else if (mTxtTimeHint.getText().toString().equals("")) {
                     Toast.makeText(AddScriptActivity.this, "请选择时间", Toast.LENGTH_SHORT).show();
                 } else {
 
-                    // 这里直接给出剧本定义，实际实现中应该从数据库读出
-                    ScriptTitle scriptTitle = new ScriptTitle("测试剧本", 2);
-
-                    RoomSetting roomSetting = new RoomSetting(
-                            mEdtTextPassword.getText().toString(),
-                            mTxtTimeHint.getText().toString(),
-                            mCurrentUser.getUid()
-                    );
                     DatabaseReference ref;
                     if (mTxtTimeHint.getText().toString().trim().equals("即开房")) {
                         ref = mRef.child("rooms").child("right_now").push();
                     } else {
                         ref = mRef.child("rooms").child("booking").push();
                     }
+                    // 这里直接给出剧本定义，实际实现中应该从数据库读出
+                    Script script = new Script("《1037公园》", "情感,入门", "4.8", 6, 5);
+                    RoomSetting roomSetting = new RoomSetting(
+                            mEdtTextPassword.getText().toString(),
+                            mTxtTimeHint.getText().toString(),
+                            "-1",
+                            ref.getKey()
+                    );
                     ref.child("settings").setValue(roomSetting);
-                    ref.child("script").setValue(scriptTitle);
+                    ref.child("script_info").setValue(script);
                     Toast.makeText(AddScriptActivity.this, "成功预约", Toast.LENGTH_SHORT).show();
                     finish();
                 }

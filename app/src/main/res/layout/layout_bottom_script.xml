@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bottom_script_background"
+    android:backgroundTint="@color/white"
     android:padding="10dp">
 
     <ImageView
@@ -62,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:src="@drawable/microphone" />
+            android:src="@drawable/bottom_sheet_microphone" />
 
         <ImageView
             android:id="@+id/bottom_script_ivSettings"
@@ -70,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/settings" />
+            android:src="@drawable/bottom_sheet_settings" />
 
         <ImageView
             android:id="@+id/bottom_script_ivNotes"
@@ -78,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_toLeftOf="@id/bottom_script_ivSettings"
-            android:src="@drawable/notes" />
+            android:src="@drawable/bottom_sheet_notes" />
 
         <ImageView
             android:id="@+id/bottom_script_ivMarkup"
@@ -86,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_toLeftOf="@id/bottom_script_ivNotes"
-            android:src="@drawable/markup" />
+            android:src="@drawable/bottom_sheet_markup" />
 
     </RelativeLayout>
 
