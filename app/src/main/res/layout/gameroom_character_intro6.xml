@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/gameroom6_character_parent"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     app:cardElevation="15dp"
-    app:cardCornerRadius="15dp"
-    android:layout_margin="10dp">
+    >
 
 
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="10dp">
+                android:layout_margin="10dp"
+                android:background="#2C2E2C">
 
                 <TextView
                     android:id="@+id/gameroom_character_intro6_text1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="60dp"
                     android:text="请指出凶手"
-                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
                     />
 
                 <LinearLayout
@@ -58,7 +60,8 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/intro5_scriptName1"
                             android:text="姓名"
-                            android:textSize="10sp"
+                            android:textSize="14sp"
+                            android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"/>
 
                     </LinearLayout>
@@ -88,7 +91,8 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/intro5_scriptName2"
                             android:text="姓名"
-                            android:textSize="10sp"
+                            android:textSize="14sp"
+                            android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"/>
 
                     </LinearLayout>
@@ -118,7 +122,8 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/intro5_scriptName3"
                             android:text="姓名"
-                            android:textSize="10sp"
+                            android:textSize="14sp"
+                            android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"/>
 
                     </LinearLayout>
@@ -158,8 +163,9 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/intro5_scriptName4"
                             android:text="姓名"
-                            android:textSize="10sp"
-                            android:layout_gravity="center_horizontal"/>
+                            android:textSize="14sp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/white"/>
 
                     </LinearLayout>
 
@@ -188,7 +194,8 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/intro5_scriptName5"
                             android:text="姓名"
-                            android:textSize="10sp"
+                            android:textSize="14sp"
+                            android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"/>
 
                     </LinearLayout>
@@ -218,7 +225,8 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/intro5_scriptName6"
                             android:text="姓名"
-                            android:textSize="10sp"
+                            android:textSize="14sp"
+                            android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"/>
 
                     </LinearLayout>
@@ -226,13 +234,18 @@
                 </LinearLayout>
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="246dp"
+                    android:layout_height="34dp"
                     android:layout_below="@+id/gameroom_character_intro6_image2"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:layout_centerHorizontal="true"
                     android:text="锁定凶手"
-                    android:textSize="15sp"/>
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/btn_center"
+                    android:backgroundTint="#FF9A4A"/>
             </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+</LinearLayout>

@@ -22,7 +22,7 @@ public class StageThreeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_stage3, container, false);
 
-        Log.d(TAG, "onCreateView: create fragment ===> R.layout.fragment_stage2");
+        Log.d(TAG, "onCreateView: create fragment ===> R.layout.fragment_stage3");
 
         return view;
     }

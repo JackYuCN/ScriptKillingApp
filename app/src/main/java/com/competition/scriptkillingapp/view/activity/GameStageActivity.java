@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.competition.scriptkillingapp.R;
+import com.competition.scriptkillingapp.view.fragment.StageFourFragment;
 import com.competition.scriptkillingapp.view.fragment.StageOneFragment;
 import com.competition.scriptkillingapp.view.fragment.StageThreeFragment;
 import com.competition.scriptkillingapp.view.fragment.StageTwoFragment;
@@ -125,6 +126,11 @@ public class GameStageActivity extends AppCompatActivity {
                     .replace(R.id.gamepage_fragment, new StageThreeFragment(), "stage3")
                     .commit();
             stage = frag_stage = 3;
+        }else if (intent_stage == 4) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.gamepage_fragment, new StageFourFragment(), "stage4")
+                    .commit();
+            stage = frag_stage = 4;
         }
     }
 
@@ -295,6 +301,19 @@ public class GameStageActivity extends AppCompatActivity {
                                 .commit();
                     }
                     frag_stage = 3;
+                }else if (stage_of_position == 4) {
+                    if (fragmentManager.findFragmentByTag("stage4") != null) {
+                        fragmentManager.beginTransaction()
+                                .hide(Objects.requireNonNull(fragmentManager.findFragmentByTag("stage" + frag_stage)))
+                                .show(Objects.requireNonNull(fragmentManager.findFragmentByTag("stage4")))
+                                .commit();
+                    } else {
+                        fragmentManager.beginTransaction()
+                                .hide(Objects.requireNonNull(fragmentManager.findFragmentByTag("stage" + frag_stage)))
+                                .add(R.id.gamepage_fragment, new StageThreeFragment(), "stage4")
+                                .commit();
+                    }
+                    frag_stage = 4;
                 }
 
             }
@@ -326,6 +345,9 @@ public class GameStageActivity extends AppCompatActivity {
                         break;
                     case 2:
                         fragment = new StageThreeFragment();
+                        break;
+                    case 3:
+                        fragment = new StageFourFragment();
                         break;
                     default:
                         assert false;

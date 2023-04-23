@@ -4,13 +4,14 @@
     android:id="@+id/gameroom5_character_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardBackgroundColor="#2C2E2C"
     app:cardElevation="15dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         >
 
         <androidx.cardview.widget.CardView
@@ -20,13 +21,14 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             app:cardCornerRadius="15dp"
-            app:cardElevation="15dp">
+            app:cardElevation="15dp"
+            >
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="5dp">
+                android:background="#801C1E1C">
 
                 <TextView
                     android:id="@+id/gameroom_character_intro5_text1"
@@ -34,7 +36,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:text="私聊房间1"
-                    android:textSize="20sp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
                     />
 
                 <LinearLayout
@@ -43,6 +47,7 @@
                     android:orientation="horizontal"
                     android:layout_below="@+id/gameroom_character_intro5_text1"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_centerHorizontal="true">
 
                     <LinearLayout
@@ -52,8 +57,8 @@
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/intro5_head1"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             app:cardCornerRadius="50dp"
                             app:cardPreventCornerOverlap="true">
 
@@ -70,6 +75,7 @@
                             android:id="@+id/intro5_scriptName1"
                             android:text="姓名"
                             android:textSize="10sp"
+                            android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"/>
 
                     </LinearLayout>
@@ -82,8 +88,8 @@
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/intro5_head2"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             app:cardCornerRadius="50dp"
                             app:cardPreventCornerOverlap="true">
 
@@ -100,6 +106,7 @@
                             android:id="@+id/intro5_scriptName2"
                             android:text="姓名"
                             android:textSize="10sp"
+                            android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"/>
 
                     </LinearLayout>
@@ -121,15 +128,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="5dp">
+                android:background="#801C1E1C">
 
                 <TextView
                     android:id="@+id/gameroom_character_intro5_text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
                     android:text="私聊房间2"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
                     />
 
                 <LinearLayout
@@ -143,12 +152,13 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_marginBottom="10dp">
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/intro5_head3"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             app:cardCornerRadius="50dp"
                             app:cardPreventCornerOverlap="true">
 
@@ -165,6 +175,7 @@
                             android:id="@+id/intro5_scriptName3"
                             android:text="姓名"
                             android:textSize="10sp"
+                            android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"/>
 
                     </LinearLayout>
@@ -186,16 +197,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="5dp">
+                android:background="#801C1E1C">
 
                 <TextView
                     android:id="@+id/gameroom_character_intro5_text3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
                     android:text="私聊房间3"
-                    android:textSize="20sp"
-                    />
+                    android:textSize="16sp"
+                    android:textColor="@color/white" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -203,6 +215,7 @@
                     android:orientation="horizontal"
                     android:layout_below="@+id/gameroom_character_intro5_text3"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_centerHorizontal="true">
 
                     <LinearLayout
@@ -212,8 +225,8 @@
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/intro5_head4"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             app:cardCornerRadius="50dp"
                             app:cardPreventCornerOverlap="true">
 
@@ -230,6 +243,7 @@
                             android:id="@+id/intro5_scriptName4"
                             android:text="姓名"
                             android:textSize="10sp"
+                            android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"/>
 
                     </LinearLayout>
@@ -242,8 +256,8 @@
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/intro5_head5"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             app:cardCornerRadius="50dp"
                             app:cardPreventCornerOverlap="true">
 
@@ -260,6 +274,7 @@
                             android:id="@+id/intro5_scriptName5"
                             android:text="姓名"
                             android:textSize="10sp"
+                            android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"/>
 
                     </LinearLayout>
@@ -272,8 +287,8 @@
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/intro5_head6"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             app:cardCornerRadius="50dp"
                             app:cardPreventCornerOverlap="true">
 
@@ -290,6 +305,7 @@
                             android:id="@+id/intro5_scriptName6"
                             android:text="姓名"
                             android:textSize="10sp"
+                            android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"/>
 
                     </LinearLayout>

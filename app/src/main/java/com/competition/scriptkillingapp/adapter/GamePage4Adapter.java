@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,7 +42,7 @@ public class GamePage4Adapter extends RecyclerView.Adapter<GamePage4Adapter.View
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder ... ");
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.gameroom_character_intro, parent, false);
+                .inflate(R.layout.fragment_stage4, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -81,7 +80,7 @@ public class GamePage4Adapter extends RecyclerView.Adapter<GamePage4Adapter.View
             super(itemView);
 
             parent = itemView.findViewById(R.id.gameroom4_character_parent);
-            btnStart = itemView.findViewById(R.id.gameroom4_button1);
+            btnStart = itemView.findViewById(R.id.gameroom4_image1);
         }
     }
 }
