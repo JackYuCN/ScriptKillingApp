@@ -34,9 +34,6 @@
             android:name=".view.activity.GameStageActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.GamePage4Activity"
-            android:exported="false" />
-        <activity
             android:name=".view.activity.GamePage5Activity"
             android:exported="false" />
         <activity

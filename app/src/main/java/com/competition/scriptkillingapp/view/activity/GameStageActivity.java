@@ -1,8 +1,11 @@
 package com.competition.scriptkillingapp.view.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -27,14 +30,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.competition.scriptkillingapp.R;
+import com.competition.scriptkillingapp.adapter.GameRoomProfileAdapter;
+import com.competition.scriptkillingapp.model.Profile;
 import com.competition.scriptkillingapp.view.fragment.StageFourFragment;
 import com.competition.scriptkillingapp.view.fragment.StageOneFragment;
 import com.competition.scriptkillingapp.view.fragment.StageThreeFragment;
 import com.competition.scriptkillingapp.view.fragment.StageTwoFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -47,7 +56,7 @@ public class GameStageActivity extends AppCompatActivity {
     //声明数组
     private String[] episodeArray = {"第一篇-序章", "第二篇-回忆1", "第一轮搜证", "第三篇-回忆2", "第二轮搜证", "第四篇-现实", "第一轮技能卡", "第五篇-结尾"};
     private DatabaseReference mRef;
-    private ImageView ivScript;
+    private ImageView ivScript, ivClue;
     private CountDownTimer timer;
     private TextView mTxtViewCountDown;
     private boolean isScriptSelectable = false;
@@ -56,6 +65,7 @@ public class GameStageActivity extends AppCompatActivity {
     private int frag_stage = 0;     // 表示当前所浏览的stage
     private int intent_stage = 0;
     private FragmentManager fragmentManager;
+    private RecyclerView profileRecView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +78,7 @@ public class GameStageActivity extends AppCompatActivity {
         mBtnReady = findViewById(R.id.gameStartActivity_btnConfirm);
         mTxtViewCountDown = findViewById(R.id.game_stage_countdown);
         ivScript = findViewById(R.id.gameStartActivity_bottom_ivScript);
+        ivClue = findViewById(R.id.gameStartActivity_bottom_ivClue);
         mRef = FirebaseDatabase.getInstance(URL).getReference();
 
         Intent intent = getIntent();
@@ -78,6 +89,10 @@ public class GameStageActivity extends AppCompatActivity {
         initListener();
         initTimer();
 
+        profileRecView = findViewById(R.id.game_room_image_recview);
+        profileRecView.setLayoutManager(new LinearLayoutManager(this));
+        profileRecView.setHasFixedSize(true);
+
         //数组适配器
         ArrayAdapter<String> germsAdapt = new ArrayAdapter<String>(this,
                 R.layout.item_select, episodeArray);
@@ -85,6 +100,27 @@ public class GameStageActivity extends AppCompatActivity {
         sp.setPrompt("请选择篇章");
         sp.setAdapter(germsAdapt);
         sp.setSelection(intent_stage - 1);
+
+        GameRoomProfileAdapter profilesAdapter = new GameRoomProfileAdapter(this);
+        ArrayList<Profile> profiles = new ArrayList<>();
+        mRef.child("Games/" + gameIdx + "/act_as")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        profiles.clear();
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            String characterName = dataSnapshot.getValue(String.class);
+                            profiles.add(new Profile(characterName, "Scripts/1037公园/人物头像/" + characterName + ".png"));
+                        }
+                        profilesAdapter.setProfiles(profiles);
+                        profileRecView.setAdapter(profilesAdapter);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     private void initTimer() {
@@ -122,8 +158,13 @@ public class GameStageActivity extends AppCompatActivity {
                     .commit();
             stage = frag_stage = 2;
         } else if (intent_stage == 3) {
+            Log.d(TAG, "onFinish: transfer gameidx to fragment 3");
+            Bundle bundle = new Bundle();
+            bundle.putString("gameIdx", gameIdx);
+            Fragment fragment = new StageThreeFragment();
+            fragment.setArguments(bundle);
             fragmentManager.beginTransaction()
-                    .replace(R.id.gamepage_fragment, new StageThreeFragment(), "stage3")
+                    .replace(R.id.gamepage_fragment, fragment, "stage3")
                     .commit();
             stage = frag_stage = 3;
         }else if (intent_stage == 4) {
@@ -154,6 +195,7 @@ public class GameStageActivity extends AppCompatActivity {
                 }
             }
         });
+        // “剧本”界面
         ivScript.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -254,6 +296,13 @@ public class GameStageActivity extends AppCompatActivity {
                 bottomSheetDialog.show();
             }
         });
+        // “线索”界面
+        ivClue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -344,7 +393,11 @@ public class GameStageActivity extends AppCompatActivity {
                         fragment = new StageTwoFragment();
                         break;
                     case 2:
+                        Log.d(TAG, "onFinish: transfer gameidx to fragment 3");
+                        Bundle bundle = new Bundle();
+                        bundle.putString("gameIdx", gameIdx);
                         fragment = new StageThreeFragment();
+                        fragment.setArguments(bundle);
                         break;
                     case 3:
                         fragment = new StageFourFragment();

@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:letterSpacing="0.1"
-            android:text="确定在图书馆处"
+            android:text="确定在这里"
             android:textColor="@color/white"
             android:layout_marginTop="20dp"
             android:textSize="18sp"/>
