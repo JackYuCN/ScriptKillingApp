@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_card_body"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/search_card"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/search_card_searchtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_gravity="center_horizontal"
+        android:letterSpacing="0.05"
+        android:text="图书馆 搜证结果"
+        android:textColor="@color/green"
+        android:textSize="22sp" />
+
+    <ImageView
+        android:id="@+id/search_card_image"
+        android:layout_width="203dp"
+        android:layout_height="203dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/search_card_imagetitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_card_image"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="6dp"
+        android:text="教学楼"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/search_card_intro"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="12dp"
+        android:text="图书馆地下室内发现，有密码锁。 钟表时间与穆镶死亡的时间一致。"
+        android:textColor="#CCECF5EB"
+        android:textSize="16sp" />
+
+
+</LinearLayout>

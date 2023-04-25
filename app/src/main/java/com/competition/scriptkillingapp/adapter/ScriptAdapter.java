@@ -95,7 +95,8 @@ public class ScriptAdapter extends RecyclerView.Adapter<ScriptAdapter.ViewHolder
                                     } else {
                                         tmp_ref = tmp_ref.child("Games").child(gameRef);
                                     }
-                                    tmp_ref.child("act_as").child(user.getUid()).setValue("null");
+                                    // 设置一些关于剧本的参数
+                                    tmp_ref.child("card_cnt").setValue(0);
                                     tmp_ref.child("max_cnt").setValue(script_info.get(position).getPeople());
                                     tmp_ref.child("cnt").setValue(0);
                                     tmp_ref.child("stages").setValue(0);

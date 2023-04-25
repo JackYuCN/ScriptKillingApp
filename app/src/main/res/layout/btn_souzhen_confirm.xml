@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/background_second_level"
+    app:cardCornerRadius="12dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/souzhen_confirm_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:letterSpacing="0.1"
+            android:text="确定在这里"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/souzhen_confirm_tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/souzhen_confirm_tv1"
+            android:layout_centerHorizontal="true"
+            android:letterSpacing="0.1"
+            android:text="使用一个行动点吗"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/souzhen_cancel"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/souzhen_confirm_tv2"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/green"
+            android:text="取消" />
+
+        <Button
+            android:id="@+id/souzhen_confirm"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/souzhen_confirm_tv2"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp"
+            android:layout_toEndOf="@id/souzhen_cancel"
+            android:backgroundTint="@color/green"
+            android:text="确定" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

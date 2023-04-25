@@ -2,27 +2,19 @@ package com.competition.scriptkillingapp.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.competition.scriptkillingapp.R;
 import com.competition.scriptkillingapp.model.GlideApp;
 import com.competition.scriptkillingapp.model.Profile;
-import com.competition.scriptkillingapp.model.ScriptCharacter;
-import com.competition.scriptkillingapp.view.activity.GameStartActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,7 +39,7 @@ public class GameRoomProfileAdapter extends RecyclerView.Adapter<GameRoomProfile
         this.context = context;
     }
 
-    public void setProfiles(ArrayList<String> UidArray) {
+    public void setProfilesByUid(ArrayList<String> UidArray) {
         DatabaseReference ref = FirebaseDatabase.getInstance(URL).getReference();
         ref.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
@@ -75,6 +67,13 @@ public class GameRoomProfileAdapter extends RecyclerView.Adapter<GameRoomProfile
 
             }
         });
+    }
+
+
+    public void setProfiles(ArrayList<Profile> profiles) {
+        Log.d(TAG, "setProfiles: " + profiles.toString());
+        this.profiles = profiles;
+        notifyDataSetChanged();
     }
 
     @NonNull

@@ -1,6 +1,7 @@
 package com.competition.scriptkillingapp.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.competition.scriptkillingapp.R;
 import com.competition.scriptkillingapp.model.Chat;
+import com.competition.scriptkillingapp.model.GlideApp;
 import com.competition.scriptkillingapp.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,10 +23,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
+    private static final String URL_STORAGE = "gs://scriptkillingapp.appspot.com";
+    private static final String TAG = "ChatAdapter";
     final String URL = "https://scriptkillingapp-default-rtdb.asia-southeast1.firebasedatabase.app/";
     public static final int MSG_TYPE_LEFT = 0;
     public static final int MSG_TYPE_RIGHT = 1;
@@ -39,20 +45,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         this.imageURL = imageURL;
         this.mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         assert this.mCurrentUser != null;
-        DatabaseReference ref = FirebaseDatabase.getInstance(URL)
-                .getReference("Users").child(this.mCurrentUser.getUid());
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User my = snapshot.getValue(User.class);
-                myImageURL = my.getImageURL();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
     @NonNull
@@ -72,16 +64,42 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ChatAdapter.ViewHolder holder, int position) {
 
+        Log.d(TAG, "myImageURL " + myImageURL);
         Chat chat = chatMessages.get(position);
 
         holder.mMessageShown.setText(chat.getMessage());
 
-        if (imageURL.equals("default")) {
-            holder.mProfileImage.setImageResource(R.mipmap.ic_launcher_round);
-        } else if (getItemViewType(position) == MSG_TYPE_LEFT) {
-            Glide.with(context).load(imageURL).into(holder.mProfileImage);
+        if (getItemViewType(position) == MSG_TYPE_LEFT) {
+            if (imageURL.equals("default")) {
+                holder.mProfileImage.setImageResource(R.drawable.cat);
+            } else if (getItemViewType(position) == MSG_TYPE_LEFT) {
+                Glide.with(context).load(imageURL).into(holder.mProfileImage);
+            }
         } else {
-            Glide.with(context).load(myImageURL).into(holder.mProfileImage);
+            if (imageURL.equals("default")) {
+                holder.mProfileImage.setImageResource(R.mipmap.ic_launcher_round);
+            } else {
+                DatabaseReference ref = FirebaseDatabase.getInstance(URL)
+                        .getReference("Users").child(this.mCurrentUser.getUid());
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User my = snapshot.getValue(User.class);
+                        Log.d(TAG, "my " + my.toString());
+                        myImageURL = my.getImageURL();
+
+                        StorageReference sref = FirebaseStorage.getInstance(URL_STORAGE).getReference();
+                        GlideApp.with(context)
+                                .load(sref.child(myImageURL))
+                                .into(holder.mProfileImage);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
         }
     }
 
