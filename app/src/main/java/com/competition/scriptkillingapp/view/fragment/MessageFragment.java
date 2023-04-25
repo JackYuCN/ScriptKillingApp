@@ -64,7 +64,7 @@ public class MessageFragment extends Fragment {
         mUsers = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
-            mPrepareRooms.add(new Message("等候室测试样例" + i));
+            mPrepareRooms.add(new Message("等候室" + i));
         }
 
         MessageAdapter prepareRoomMsgAdapter = new MessageAdapter(view.getContext());

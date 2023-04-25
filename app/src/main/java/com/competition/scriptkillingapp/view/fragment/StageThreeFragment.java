@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,14 +36,16 @@ public class StageThreeFragment extends Fragment {
     private static final String TAG = "Stage3Check";
     private View view;
     private ImageView bigView;
+    private Button btnShowCardCnt;
     private String gameIdx;
-
+    private int card_cnt;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_stage3, container, false);
 
+        card_cnt = 2;
         gameIdx = getArguments().getString("gameIdx");
         Log.d(TAG, "gameIdx ---> " + gameIdx);
 
@@ -50,6 +53,8 @@ public class StageThreeFragment extends Fragment {
         ref.child("Games").child(gameIdx).child("search_point").setValue(4);
 
         bigView = view.findViewById(R.id.big_image);
+        btnShowCardCnt = view.findViewById(R.id.show_card_left);
+
         bigView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -73,13 +78,13 @@ public class StageThreeFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCard();
                 reconfirm_dialog.dismiss();
             }
         });
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showCard();
                 reconfirm_dialog.dismiss();
             }
         });
@@ -87,6 +92,8 @@ public class StageThreeFragment extends Fragment {
     }
 
     private void showCard() {
+        update_btn();
+
         final Dialog card_dialog = new Dialog(view.getContext(), R.style.NormalDialogStyle);
         View dialogView = View.inflate(view.getContext(), R.layout.search_card_layout, null);
         LinearLayout card = dialogView.findViewById(R.id.search_card_body);
@@ -129,7 +136,7 @@ public class StageThreeFragment extends Fragment {
                                         break;
                                 }
                                 StorageReference sref = FirebaseStorage.getInstance(URL_STORAGE).getReference();
-                                GlideApp.with(dialogView.getContext())
+                                GlideApp.with(getContext())
                                         .load(sref.child(imageUrl))
                                         .into(image);
                                 result_title.setText(res);
@@ -154,6 +161,14 @@ public class StageThreeFragment extends Fragment {
                 card_dialog.dismiss();
             }
         });
+    }
+
+    private void update_btn() {
+        card_cnt -= 1;
+        btnShowCardCnt.setText("行动点"+card_cnt+"/2");
+        if (card_cnt == 0) {
+            bigView.setOnLongClickListener(null);
+        }
     }
 
 }
