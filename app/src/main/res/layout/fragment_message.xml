@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:overScrollMode="never">
+    android:overScrollMode="never"
+    android:background="@color/black">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,27 +27,26 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
                 android:text="消息"
-                android:textSize="25sp" />
+                android:textSize="17sp"
+                android:textColor="@color/white"/>
 
-            <TextView
+            <ImageView
                 android:id="@+id/message_txtAddFriend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="96dp"
+                android:layout_height="28dp"
                 android:layout_alignBaseline="@id/message_txtTitle"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="20dp"
-                android:text="添加好友"
-                android:textSize="18sp" />
+                android:src="@drawable/tianjiahaoyou"/>
 
-            <TextView
+            <ImageView
                 android:id="@+id/message_txtPrepareRoom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="88dp"
+                android:layout_height="21dp"
                 android:layout_below="@id/message_txtTitle"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:text="准备室"
-                android:textSize="20sp" />
+                android:src="@drawable/zhunbeishi"/>
 
             <TextView
                 android:id="@+id/message_txtShowAll"
@@ -69,15 +69,14 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/message_txtOtherMsg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="88dp"
+                android:layout_height="21dp"
                 android:layout_below="@id/message_prepareRoomRecView"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:text="其他消息"
-                android:textSize="20sp" />
+                android:src="@drawable/qitaxiaoxi"/>
 
 
         </RelativeLayout>

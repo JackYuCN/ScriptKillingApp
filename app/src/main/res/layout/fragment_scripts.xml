@@ -5,20 +5,19 @@
     android:id="@+id/scripts_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:fillViewport="true"
     android:overScrollMode="never">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/scripts_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/background_second_level">
 
             <EditText
                 android:id="@+id/scripts_text_demo"
@@ -27,14 +26,29 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="20dp"
+                android:background="@drawable/bg_username"
+                android:backgroundTint="#2C2E2C"
                 android:ems="10"
-                android:hint="请输入关键词搜索"
-                android:padding="10dp" />
+                android:hint="剧本/店家/DM…"
+                android:padding="10dp"
+                android:textColor="#CCECF5EB"
+                android:textColorHint="#CCECF5EB"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/scripts_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                app:cardBackgroundColor="@color/black"
                 app:cardCornerRadius="15dp">
 
 
@@ -52,21 +66,24 @@
 
                         <Button
                             android:id="@+id/scripts_cardView1_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="54dp"
+                            android:layout_height="54dp"
+                            android:layout_centerHorizontal="true"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="5dp"
                             android:layout_weight="1"
-                            android:text="按钮1" />
+                            android:background="@drawable/jubenku" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/scripts_cardView1_btn"
                             android:layout_centerHorizontal="true"
-                            android:text="店家" />
+                            android:text="剧本库"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
 
 
                     </RelativeLayout>
@@ -79,20 +96,23 @@
 
                         <Button
                             android:id="@+id/scripts_cardView2_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="54dp"
+                            android:layout_height="54dp"
+                            android:layout_centerHorizontal="true"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="按钮2" />
+                            android:background="@drawable/paihangbang" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/scripts_cardView2_btn"
                             android:layout_centerHorizontal="true"
-                            android:text="DM" />
+                            android:text="排行榜"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
 
 
                     </RelativeLayout>
@@ -105,17 +125,23 @@
 
                         <Button
                             android:id="@+id/scripts_cardView3_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:text="按钮3" />
+                            android:layout_width="54dp"
+                            android:layout_height="54dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/dm" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/scripts_cardView3_btn"
                             android:layout_centerHorizontal="true"
-                            android:text="剧本库" />
+                            android:text="DM"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
 
 
                     </RelativeLayout>
@@ -128,17 +154,20 @@
 
                         <Button
                             android:id="@+id/scripts_cardView4_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="54dp"
+                            android:layout_height="54dp"
+                            android:layout_centerHorizontal="true"
                             android:layout_margin="5dp"
-                            android:text="按钮4" />
+                            android:background="@drawable/shangjia" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/scripts_cardView4_btn"
                             android:layout_centerHorizontal="true"
-                            android:text="排行榜" />
+                            android:text="商家"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
 
 
                     </RelativeLayout>
@@ -152,46 +181,22 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="新本上架"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:textSize="20sp" />
+                android:text="新本上架"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
                 android:orientation="horizontal">
 
-                <include
-                    layout="@layout/script_item_vertical"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1" />
-
-                <include
-                    layout="@layout/script_item_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1" />
-
-                <include
-                    layout="@layout/script_item_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1" />
-
-                <include
-                    layout="@layout/script_item_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1" />
+                    android:src="@drawable/xinben" />
 
             </LinearLayout>
 
@@ -201,51 +206,53 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:text="剧本榜单"
-                android:textSize="20sp" />
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="250dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
                 android:orientation="horizontal">
 
-                <include
-                    layout="@layout/top_script_list_cardview"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:src="@drawable/rexiao" />
 
-                <include
-                    layout="@layout/top_script_list_cardview"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/tuijian" />
+
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
-                android:text="热门推荐"
-                android:textSize="20sp" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginEnd="15dp"-->
+<!--                android:text="热门推荐"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="16sp" />-->
 
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/scripts_recommendRecView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp" />
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/scripts_recommendRecView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="20dp" />-->
 
     </LinearLayout>
 
